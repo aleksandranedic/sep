@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  rabbitmq:
+    host: rabbitmq
+    password: guest
+    port: 15672
+    username: guest
+    exchange: user.exchange
+    queue: user.queue
+    routingkey: user.routingkey
+
+clients:
+  back-office:
+    host: ${BACK_OFFICE_HOST:127.0.0.1}
+    port: ${BACK_OFFICE_PORT:8082}
+  order-processing:
+    host: ${ORDER_PROCESSING_HOST:127.0.0.1}
+    port: ${ORDER_PROCESSIONG_PORT:8083}
+  order-search:
+    host: ${ORDER_SEARCH_HOST:127.0.0.1}
+    port: ${ORDER_SEARCH_PORT:8085}
