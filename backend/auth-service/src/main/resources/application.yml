@@ -1,0 +1,73 @@
+server:
+  port: 8001
+spring:
+  mail:
+    host: 'smtp.office365.com'
+    port: 587
+    username: bsep-test@outlook.com
+    password: bsep_bsep
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sep
+    username: postgres
+    password: postgres
+    sql.init.continue-on-error: true
+  jpa:
+    generate-ddl: 'true'
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        generate_statistics: 'false'
+        search:
+          default:
+            directory_provider: filesystem
+            indexBase: ./data/index/default
+        format_sql: 'true'
+    defer-datasource-initialization: 'true'
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: 'false'
+    open-in-view: true
+  servlet:
+  multipart:
+    max-file-size: 100MB
+    max-request-size: 100MB
+  devtools:
+    remote:
+      secret: "secret"
+#  sql:
+#    init:
+#      data-locations: classpath:/data-postgres.sql
+#      mode: always
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  profiles:
+    active: dev
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/nutrical?createDatabaseIfNotExist=true
+#jpa:
+#hibernate:
+#dialect: org.hibernate.dialect.PostgreSQL95Dialect
+app:
+  auth:
+    tokenSecret: 124672bc59b44e1f90d5afc5f6c8d500a4713f0eadbc2c1acc2a7caf9c9c9cd8
+    tokenExpirationSeconds: 864000
+  cors:
+    allowedOrigins: http://localhost:4200, http://127.0.0.1:4200
+  mailing:
+    templatesLocation: templates
+    senderAddress: bsep-test@outlook.com
