@@ -22,14 +22,8 @@ import {CertificatesModule} from "./views/certificates/certificates.module";
 import {CsrModule} from "./views/csr/csr.module";
 import {MatCardModule} from "@angular/material/card";
 import {VerificationpageModule} from "./views/verification-screen/verificationpage.module";
-import {PropertiesModule} from "./views/objects/properties.module";
 import {TokensModule} from "./views/tokens/tokens.module";
-import {DeviceModule} from "./views/device/device.module";
-import {HandshakeWebSocketAPI} from "./services/handshake/handshake-socket.service";
-import {HandshakeWebsocketShareService} from "./services/handshake/handshake-websocketshare.service";
 import {LogsModule} from "./views/logs/logs.module";
-import {AlarmWebSocketAPI} from "./services/alarm/alarm.socket.service";
-import {AlarmWebsocketShareService} from "./services/alarm/alarm.websocketshare.service";
 
 @NgModule({
   declarations: [
@@ -59,12 +53,9 @@ import {AlarmWebsocketShareService} from "./services/alarm/alarm.websocketshare.
     CsrModule,
     MatCardModule,
     ReactiveFormsModule,
-    PropertiesModule,
     TokensModule,
-    DeviceModule,
     LogsModule
   ],
-  providers: [HandshakeWebSocketAPI, HandshakeWebsocketShareService, AlarmWebSocketAPI, AlarmWebsocketShareService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
