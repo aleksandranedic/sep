@@ -24,6 +24,7 @@ import {MatCardModule} from "@angular/material/card";
 import {VerificationpageModule} from "./views/verification-screen/verificationpage.module";
 import {TokensModule} from "./views/tokens/tokens.module";
 import {LogsModule} from "./views/logs/logs.module";
+import {PaymenttypeModule} from "./views/payment-type/paymenttype.module";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {LogsModule} from "./views/logs/logs.module";
     MatCardModule,
     ReactiveFormsModule,
     TokensModule,
-    LogsModule
+    LogsModule,
+    PaymenttypeModule
   ],
   bootstrap: [AppComponent]
 })
