@@ -27,6 +27,7 @@ export class LoginComponent {
   loginFailed = false;
 
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private _formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+    authService.user().subscribe(user => this.email = user + '');
   }
 
   switchToRegisterForm() {

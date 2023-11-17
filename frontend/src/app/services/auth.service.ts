@@ -21,12 +21,13 @@ export class AuthService {
     return this.loggedUserSubject.asObservable();
   }
 
-  onNewUserReceived(msg: User | undefined) {
-    this.loggedUserSubject.next(msg);
-  }
-
   constructor(private http: HttpClient) {
     this.authUrl = environment.apiUrl + '/auth';
+  }
+
+  public user(): Observable<number> {
+    console.log("TU SMO ");
+    return this.http.get<number>(this.authUrl + '/user', AuthService.getHttpOptions());
   }
 
   public login(user: LoginCredentials): Observable<LoginResponseDto> {
