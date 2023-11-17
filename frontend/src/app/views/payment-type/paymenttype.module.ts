@@ -13,11 +13,13 @@ import {SharedModule} from "../../shared/shared.module";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {PaymentTypeContainer} from "./payment-type.component";
+import {PaymentTypeContainer} from "./container/payment-type.component";
+import { CreditCardDialogComponent } from './dialogs/credit-card-dialog/credit-card-dialog.component';
 
 @NgModule({
   declarations: [
     PaymentTypeContainer,
+    CreditCardDialogComponent,
   ],
   imports: [
     MatFormFieldModule,

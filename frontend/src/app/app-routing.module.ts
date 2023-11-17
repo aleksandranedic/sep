@@ -17,7 +17,7 @@ import {
 } from "./views/verification-screen/container/tenant-invitation-container/tenant-invitation-container.component";
 import {TokensContainerComponent} from "./views/tokens/container/tokens/tokens-container.component";
 import {LogsContainerComponent} from "./views/logs/container/logs-container/logs-container.component";
-import {PaymentTypeContainer} from "./views/payment-type/payment-type.component";
+import {PaymentTypeContainer} from "./views/payment-type/container/payment-type.component";
 
 const routes: Routes = [
   {path: '', component: HomepageContainerComponent},
