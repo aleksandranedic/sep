@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties("clients.order-processing")
-public class OrderProcessingConfiguration extends ClientConfiguration {
+@ConfigurationProperties("clients.auth-service")
+public class AuthServiceConfiguration extends ClientConfiguration {
 }

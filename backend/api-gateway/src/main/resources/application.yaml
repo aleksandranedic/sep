@@ -12,12 +12,15 @@ spring:
     routingkey: user.routingkey
 
 clients:
-  back-office:
-    host: ${BACK_OFFICE_HOST:127.0.0.1}
-    port: ${BACK_OFFICE_PORT:8082}
-  order-processing:
-    host: ${ORDER_PROCESSING_HOST:127.0.0.1}
-    port: ${ORDER_PROCESSIONG_PORT:8083}
-  order-search:
-    host: ${ORDER_SEARCH_HOST:127.0.0.1}
-    port: ${ORDER_SEARCH_PORT:8085}
+  auth-service:
+    host: ${AUTH_SERVICE_HOST:127.0.0.1}
+    port: ${AUTH_SERVICE_PORT:8001}
+  payment-card-center:
+    host: ${PAYMENT_CARD_CENTER_HOST:127.0.0.1}
+    port: ${PAYMENT_CARD_CENTER_PORT:8085}
+  payment-service-provider:
+    host: ${PAYMENT_SERVICE_HOST:127.0.0.1}
+    port: ${PAYMENT_SERVICE_PORT:8086}
+  paypal-service:
+    host: ${PAYPAL_SERVICE_HOST:127.0.0.1}
+    port: ${PAYPAL_SERVICE_PORT:8087}

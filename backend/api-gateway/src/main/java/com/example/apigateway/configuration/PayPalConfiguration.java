@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties("clients.order-search")
-public class SearchOrdersConfiguration extends ClientConfiguration {
+@ConfigurationProperties("clients.paypal-service")
+public class PayPalConfiguration extends ClientConfiguration {
 }
