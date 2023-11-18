@@ -22,8 +22,6 @@ public class TokenProvider {
 
     private final Set<String> tokenBlacklist = new HashSet<>();
 
-    private final Map<String, BlacklistedTokenInfo> tokenBlacklistInfo = new HashMap<>();
-
     public TokenProvider(AppProperties appProperties) {
         this.authProperties = appProperties.getAuth();
     }
@@ -66,29 +64,8 @@ public class TokenProvider {
         }
     }
 
-    public void addTokenToBlacklist(String token) {
-        tokenBlacklist.add(token);
-
-        try {
-            Claims claims = readClaims(token);
-            tokenBlacklistInfo.put(token, new BlacklistedTokenInfo(
-                    claims.getSubject(),
-                    claims.getIssuedAt().toString(),
-                    claims.getExpiration().toString()
-            ));
-        } catch (Exception e) {
-            tokenBlacklistInfo.put(token, new BlacklistedTokenInfo(
-                    e.getMessage()
-            ));
-        }
-    }
-
     public boolean isTokenBlacklisted(String token) {
         return token != null && tokenBlacklist.contains(token);
-    }
-
-    public List<BlacklistedTokenInfo> getTokenBlacklistInfo() {
-        return tokenBlacklistInfo.values().stream().toList();
     }
 
     private Key getKey() {
