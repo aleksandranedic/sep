@@ -1,0 +1,4 @@
+paypal,http://localhost:8087/api/payment/
+card,http://localhost:8000/api/bank/pay/card/
+qr,http://localhost:8000/api/bank/pay/qr/
+crypto,http://localhost:8444/api/payment/

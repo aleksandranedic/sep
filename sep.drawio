@@ -1,0 +1,277 @@
+<mxfile host="app.diagrams.net" modified="2023-11-19T16:43:21.061Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="Rz-C0HdPWkV72T-beuUf" version="22.1.3" type="device">
+  <diagram name="Page-1" id="DG9Ua_sVIuHAXyYFttZD">
+    <mxGraphModel dx="1970" dy="1578" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tfH775x21Em-WbxbBMdr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="tfH775x21Em-WbxbBMdr-1" target="tfH775x21Em-WbxbBMdr-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="-190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="150" y="-210" />
+              <mxPoint x="150" y="-210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-1" value="PSP" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-50" y="-220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="tfH775x21Em-WbxbBMdr-3" target="tfH775x21Em-WbxbBMdr-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="-260" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="230" y="-260" />
+              <mxPoint x="310" y="-260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="tfH775x21Em-WbxbBMdr-3" target="tfH775x21Em-WbxbBMdr-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tfH775x21Em-WbxbBMdr-3" target="tfH775x21Em-WbxbBMdr-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-19" value="payment url" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="tfH775x21Em-WbxbBMdr-18" vertex="1" connectable="0">
+          <mxGeometry x="0.32" y="2" relative="1" as="geometry">
+            <mxPoint x="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-3" value="Card service" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="-220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-5" value="PCC" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="-360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-6" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="370" y="-480" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="tfH775x21Em-WbxbBMdr-5" target="tfH775x21Em-WbxbBMdr-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-8" value="1. merchant id&lt;br&gt;2. merchant password&lt;br&gt;3. account amount" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="430" y="-450" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-10" value="is valid?&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="235" y="-282" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-11" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="440" y="-230" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-13" value="&lt;br&gt;merchant order id&lt;br&gt;amount&lt;br&gt;accquirerer id&lt;br&gt;success url&lt;br&gt;unsuccess url&lt;br&gt;error url&lt;br&gt;payment id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="500" y="-210" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.617;entryY=0.017;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="tfH775x21Em-WbxbBMdr-5" target="tfH775x21Em-WbxbBMdr-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="-240" />
+              <mxPoint x="244" y="-240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-15" value="payment url&lt;br&gt;payment id" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="tfH775x21Em-WbxbBMdr-14" vertex="1" connectable="0">
+          <mxGeometry x="-0.2387" y="5" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tfH775x21Em-WbxbBMdr-21" target="CAzMv215r4XDbud7KLnu-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="35" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tfH775x21Em-WbxbBMdr-21" target="CAzMv215r4XDbud7KLnu-59">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="730" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tfH775x21Em-WbxbBMdr-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-21" value="PSP" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-25" y="530" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="tfH775x21Em-WbxbBMdr-27" target="tfH775x21Em-WbxbBMdr-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="545" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-9" value="payment id&lt;br&gt;payment url" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="CAzMv215r4XDbud7KLnu-8">
+          <mxGeometry x="0.474" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tfH775x21Em-WbxbBMdr-27" target="CAzMv215r4XDbud7KLnu-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-15" value="generated acquirer order id&lt;br&gt;acquirer timestamp&lt;br&gt;card info&lt;br&gt;amount" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="CAzMv215r4XDbud7KLnu-13">
+          <mxGeometry x="-0.3955" y="1" relative="1" as="geometry">
+            <mxPoint x="23" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-27" value="ACQUIRER BANK" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="305" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-28" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="395" y="270" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="tfH775x21Em-WbxbBMdr-27" target="tfH775x21Em-WbxbBMdr-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-30" value="1. merchant id&lt;br&gt;2. merchant password&lt;br&gt;3. account amount" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="565" y="-260" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tfH775x21Em-WbxbBMdr-33" value="&lt;br&gt;merchant order id&lt;br&gt;amount&lt;br&gt;accquirerer id&lt;br&gt;success url&lt;br&gt;unsuccess url&lt;br&gt;error url&lt;br&gt;payment id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="570" y="-190" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CAzMv215r4XDbud7KLnu-2" target="CAzMv215r4XDbud7KLnu-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-10" y="430" />
+              <mxPoint x="-10" y="507" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-2" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="5" y="370" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-3" value="&lt;br&gt;success url&lt;br&gt;failed url&lt;br&gt;error url" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-210" y="300" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.625;entryY=1.017;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tfH775x21Em-WbxbBMdr-21" target="tfH775x21Em-WbxbBMdr-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-7" value="createPayment()" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="CAzMv215r4XDbud7KLnu-4">
+          <mxGeometry x="0.2742" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-5" value="request body:&lt;br&gt;&lt;br&gt;merchant id&lt;br&gt;merchant password&lt;br&gt;merchant order id&lt;br&gt;merchant timestamp&lt;br&gt;amount&lt;br&gt;success url&lt;br&gt;failed url&amp;nbsp;&amp;nbsp;&lt;br&gt;error url" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="305.5" y="650" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="CAzMv215r4XDbud7KLnu-10" target="tfH775x21Em-WbxbBMdr-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-12" value="payment id&lt;br&gt;pan&lt;br&gt;securyt code&lt;br&gt;card holder name&lt;br&gt;expiry month&lt;br&gt;expiry year" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="CAzMv215r4XDbud7KLnu-11">
+          <mxGeometry x="-0.6318" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-10" value="Issuer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="200" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="CAzMv215r4XDbud7KLnu-14" target="CAzMv215r4XDbud7KLnu-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-56" value="acquirer order id&lt;br&gt;acquirer timestamp&lt;br&gt;card info&lt;br&gt;amount" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="CAzMv215r4XDbud7KLnu-16">
+          <mxGeometry x="-0.5347" y="4" relative="1" as="geometry">
+            <mxPoint x="43" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="CAzMv215r4XDbud7KLnu-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-14" value="PCC" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="CAzMv215r4XDbud7KLnu-17" target="CAzMv215r4XDbud7KLnu-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="992" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-17" value="ISSUER BANK" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="932" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-19" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="962" y="260" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-26" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-210" y="350" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-28" value="merchant id&lt;br&gt;banka" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-26">
+          <mxGeometry y="29" width="140" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-29" value="Transaction" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-210" y="440" width="140" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-31" value="merchant id&lt;br&gt;merchant order id&lt;br&gt;amount&lt;br&gt;timestamp" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-29">
+          <mxGeometry y="29" width="140" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.021;entryY=0.171;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="CAzMv215r4XDbud7KLnu-2" target="CAzMv215r4XDbud7KLnu-28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-67" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-34" value="PSP kreira merchant order id, successurl, error url i failed url" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="590" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-37" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="620" y="163" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-38" value="id&lt;br&gt;password&lt;br&gt;card info" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-37">
+          <mxGeometry y="29" width="140" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-40" value="merchant id&lt;br&gt;merchant passwod su id i password ovde" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="90" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-41" value="Transaction" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="465" y="115" width="140" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-42" value="userId&lt;br&gt;paymend id&lt;br&gt;merchant order id&lt;br&gt;merchant timestamp&lt;br&gt;amount&amp;nbsp;&lt;br&gt;success url&lt;br&gt;failed url&lt;br&gt;error url&lt;br&gt;&lt;br&gt;issuer card info&lt;br&gt;&lt;br&gt;(kad&amp;nbsp; nije ista banka:)&lt;br&gt;acquirer order id&amp;nbsp;&lt;br&gt;acquirer timestamp" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-41">
+          <mxGeometry y="29" width="140" height="221" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-47" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="640" y="528" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-48" value="Transaction" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="605" y="630" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-49" value="acqurire order id&lt;br&gt;acquirer timestamp&lt;br&gt;card info" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-48">
+          <mxGeometry y="29" width="140" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-51" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1207" y="120" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-52" value="id&lt;br&gt;password&lt;br&gt;card info" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-51">
+          <mxGeometry y="29" width="140" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-53" value="merchant id&lt;br&gt;merchant passwod su id i password ovde" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1312" y="70" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-54" value="Transaction" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1052" y="115" width="140" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-55" value="userId&lt;br&gt;paymend id&lt;br&gt;merchant order id&lt;br&gt;merchant timestamp&lt;br&gt;amount&amp;nbsp;&lt;br&gt;&lt;br&gt;issuer order id&lt;br&gt;isuer timestamp" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="CAzMv215r4XDbud7KLnu-54">
+          <mxGeometry y="29" width="140" height="151" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-57" value="ovaj acquirer id&lt;br&gt;acquirer timestamp&lt;br&gt;se cuva u merchant order id i merchant timestamp&lt;br&gt;i kreira se novi payment id" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="40" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-59" value="Paypal service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CAzMv215r4XDbud7KLnu-61" value="Crypto service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="800" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
