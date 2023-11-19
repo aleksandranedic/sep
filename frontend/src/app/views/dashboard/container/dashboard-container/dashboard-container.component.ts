@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {CsrFormComponent} from "../../components/csr-form/csr-form.component";
 
 @Component({
   selector: 'app-dashboard-container',
@@ -13,13 +12,6 @@ export class DashboardContainerComponent {
 
   constructor(public dialog: MatDialog) {
     this.userRole = localStorage.getItem("userRole") || ""
-  }
-
-  openNewCertificateDialog() {
-    this.dialog.open(CsrFormComponent, {
-      height: '500px',
-      width: '600px',
-    });
   }
 }
 
