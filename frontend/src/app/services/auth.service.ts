@@ -59,12 +59,12 @@ export class AuthService {
 
   public static getHttpOptions(params: HttpParams = new HttpParams()) {
     return {
-      headers: new HttpHeaders({
+      /*headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
-      }),
+      }),*/
       params: params,
-      withCredentials: true
+      //withCredentials: true
     };
   }
 

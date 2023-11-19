@@ -73,3 +73,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+frontend/angular.json
+frontend/.angular/
+frontend/node_modules/

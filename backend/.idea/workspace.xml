@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="446f1940-88bd-45c0-bc89-53930fc84c19" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-card-center/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-card-center/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-card-center/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-card-center/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-service-provider/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service-provider/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-service-provider/src/main/java/com/example/paymentserviceprovider/PaymentServiceProviderApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service-provider/src/main/java/com/example/paymentserviceprovider/PaymentServiceProviderApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-service-provider/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service-provider/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paypal-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/paypal-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bank/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/angular.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "development",
     "last_opened_file_path": "C:/Users/Glusac/Desktop/New folder/Sandra/sep/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
