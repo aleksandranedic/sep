@@ -2,19 +2,34 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="bank" />
+        <module name="paypal-service" />
+        <module name="payment-crypto-service" />
+        <module name="payment-card-center" />
+        <module name="payment-service-provider" />
+        <module name="payment-qr-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="auth-service" target="17" />
+      <module name="payment-card-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-service" options="-parameters" />
+      <module name="bank" options="-parameters" />
+      <module name="payment-card-center" options="-parameters" />
+      <module name="payment-card-service" options="-parameters" />
+      <module name="payment-crypto-service" options="-parameters" />
+      <module name="payment-qr-service" options="-parameters" />
+      <module name="payment-service-provider" options="-parameters" />
+      <module name="paypal-service" options="-parameters" />
     </option>
   </component>
 </project>
