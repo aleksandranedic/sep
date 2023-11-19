@@ -18,7 +18,7 @@ public class BankController {
     @Autowired
     UserRepo userRepo;
 
-    @PostMapping("/pay/{method}/")
+    @PostMapping("/pay/{method}")
     public ResponseEntity<PaymentResponseDTO> pay(@PathVariable String method, @RequestBody PSPPaymentDTO pspPaymentDTO) {
         return bankService.createFullPayment(method, pspPaymentDTO);
     }
@@ -28,7 +28,7 @@ public class BankController {
         return bankService.payWithCard(method, cardPaymentDTO);
     }
 
-    @PostMapping("/payment/issuer/")
+    @PostMapping("/payment/issuer")
     public ResponseEntity<PCCResponseDTO> issuerPay(@RequestBody PCCPayloadDTO pccPayloadDTO) {
         return bankService.issuerPay(pccPayloadDTO);
     }

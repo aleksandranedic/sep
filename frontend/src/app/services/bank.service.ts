@@ -19,7 +19,7 @@ export class BankService {
   private readonly bankUrl: string;
 
   constructor(private http: HttpClient) {
-    this.bankUrl = environment.bankUrl + '/api/payment';
+    this.bankUrl = environment.bankUrl + '/api/bank';
   }
 
   public pay(method: string, pspPaymentDTO: PSPPaymentDTO): Observable<PaymentResponseDTO> {
