@@ -27,10 +27,17 @@ export class LoginComponent {
   loginFailed = false;
 
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private _formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
-    authService.user().subscribe(user => this.email = user + '');
+    // authService.user().subscribe(user => this.email = user + '');
   }
 
   switchToRegisterForm() {
+    this.authService.user().subscribe({
+      next: (auth) => {
+        console.log(auth)
+      }, error: (err) => {
+        console.log(err)
+      }
+    });
     this.switchForm.emit();
   }
 

@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/pera/{id}")
     public int getUser(@PathVariable long id) {
         System.out.println("TU SMO " + id);
         return (int) (1000 + id);

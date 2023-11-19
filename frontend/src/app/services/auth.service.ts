@@ -27,7 +27,7 @@ export class AuthService {
 
   public user(): Observable<number> {
     console.log("TU SMO ");
-    return this.http.get<number>(this.authUrl + '/user', AuthService.getHttpOptions());
+    return this.http.get<number>(environment.apiUrl + '/api/pera/user', AuthService.getHttpOptions());
   }
 
   public login(user: LoginCredentials): Observable<LoginResponseDto> {
