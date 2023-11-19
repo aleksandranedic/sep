@@ -16,6 +16,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {PaymentTypeContainer} from "./container/payment-type.component";
 import { CreditCardDialogComponent } from './dialogs/credit-card-dialog/credit-card-dialog.component';
 import { QrCodeComponent } from './dialogs/qr-code/qr-code.component';
+import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 
 @NgModule({
   declarations: [
@@ -23,24 +24,25 @@ import { QrCodeComponent } from './dialogs/qr-code/qr-code.component';
     CreditCardDialogComponent,
     QrCodeComponent,
   ],
-  imports: [
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    FormsModule,
-    CommonModule,
-    MatSnackBarModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    SharedModule,
-    MatSelectModule,
-    MatTableModule,
-    MatTooltipModule,
-  ],
+    imports: [
+        MatFormFieldModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        FormsModule,
+        CommonModule,
+        MatSnackBarModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        SharedModule,
+        MatSelectModule,
+        MatTableModule,
+        MatTooltipModule,
+        NgxQRCodeModule,
+    ],
   exports: [
   ],
   bootstrap: []
