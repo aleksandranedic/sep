@@ -29,7 +29,7 @@ export class BankService {
 
   public payWithCardQR(method: string, cardPaymentDTO: CardPaymentDTO): Observable<CardPaymentResponseDTO> {
     const url = `${this.bankUrl}/${method}/payment`;
-    return this.http.post<CardPaymentResponseDTO>(url, cardPaymentDTO, AuthService.getHttpOptions());
+    return this.http.post<CardPaymentResponseDTO>(url, cardPaymentDTO);
   }
 
   public issuerPay(pccPayloadDTO: any): Observable<PCCResponseDTO> {
