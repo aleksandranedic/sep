@@ -57,7 +57,7 @@ public class PaymentService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body(Map.of("Error","Failed to make the request"));
+            return ResponseEntity.status(500).body(Map.of("Error", "Failed to make the request"));
         }
     }
 
@@ -86,6 +86,7 @@ public class PaymentService {
         });
         return filteredData;
     }
+
     private String createMerchantOrderId() {
         Random random = new Random();
         String merchantOrderId;

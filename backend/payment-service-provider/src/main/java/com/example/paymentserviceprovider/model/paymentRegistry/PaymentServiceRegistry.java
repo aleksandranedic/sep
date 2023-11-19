@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentServiceRegistry {
-    public static record PaymentDescriptor(String url) {}
+    public record PaymentDescriptor(String url) {}
     private static final Map<String, PaymentDescriptor> registeredPaymentServices = new HashMap<>();
 
     public static void registerNewPaymentService(String method, PaymentDescriptor paymentDescriptor) {

@@ -18,7 +18,7 @@ public class PaymentResponse {
     String failedUrl;
     String errorUrl;
 
-    public PaymentResponse(  String paymentId, String successUrl, String failedUrl, String errorUrl) {
+    public PaymentResponse(String paymentId, String successUrl, String failedUrl, String errorUrl) {
         this.paymentId = paymentId;
         this.successUrl = successUrl;
         this.failedUrl = failedUrl;
