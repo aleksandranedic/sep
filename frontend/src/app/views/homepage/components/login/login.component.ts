@@ -27,17 +27,9 @@ export class LoginComponent {
   loginFailed = false;
 
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private _formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
-    // authService.user().subscribe(user => this.email = user + '');
   }
 
   switchToRegisterForm() {
-    this.authService.user().subscribe({
-      next: (auth) => {
-        console.log(auth)
-      }, error: (err) => {
-        console.log(err)
-      }
-    });
     this.switchForm.emit();
   }
 
@@ -56,7 +48,7 @@ export class LoginComponent {
       code: undefined
     }
     this.authService.login(loginCredentials).subscribe({
-      next: (auth) => {
+      next: () => {
         this.twoFactorAuth = true;
         this.loginFailed = false;
       }, error: () => {

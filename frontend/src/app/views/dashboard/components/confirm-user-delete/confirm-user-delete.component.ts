@@ -5,7 +5,6 @@ import {AuthService} from "../../../../services/auth.service";
 import {UserService} from "../../../../services/user.service";
 import {MatDialogRef} from "@angular/material/dialog";
 import {UserDetailsDialogComponent} from "../user-details-dialog/user-details-dialog.component";
-import {PropertyService} from "../../../../services/property.service";
 import {PropertyResponse} from "../../../../model/Property";
 
 @Component({
@@ -23,7 +22,6 @@ export class ConfirmUserDeleteComponent implements OnInit{
     private _formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private propertyService: PropertyService,
     private dialogRef: MatDialogRef<ConfirmUserDeleteComponent>,
   ) {
   }
@@ -51,8 +49,5 @@ export class ConfirmUserDeleteComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.propertyService.getPropertiesOfOwner(this.userEmail).subscribe((res) => {
-      this.properties = res
-    })
   }
 }

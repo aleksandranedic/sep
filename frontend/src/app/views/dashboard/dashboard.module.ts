@@ -11,7 +11,6 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatMenuModule} from "@angular/material/menu";
 import {DashboardContainerComponent} from './container/dashboard-container/dashboard-container.component';
 import {SharedModule} from "../../shared/shared.module";
-import {CsrFormComponent} from './components/csr-form/csr-form.component';
 import {MatSelectModule} from "@angular/material/select";
 import { UsersComponent } from './components/users/users.component';
 import {MatTableModule} from "@angular/material/table";
@@ -22,7 +21,6 @@ import { ConfirmUserDeleteComponent } from './components/confirm-user-delete/con
 @NgModule({
   declarations: [
     DashboardContainerComponent,
-    CsrFormComponent,
     UsersComponent,
     UserDetailsDialogComponent,
     ConfirmUserDeleteComponent,

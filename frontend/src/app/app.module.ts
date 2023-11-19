@@ -18,12 +18,8 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DashboardModule} from "./views/dashboard/dashboard.module";
-import {CertificatesModule} from "./views/certificates/certificates.module";
-import {CsrModule} from "./views/csr/csr.module";
 import {MatCardModule} from "@angular/material/card";
 import {VerificationpageModule} from "./views/verification-screen/verificationpage.module";
-import {TokensModule} from "./views/tokens/tokens.module";
-import {LogsModule} from "./views/logs/logs.module";
 import {PaymenttypeModule} from "./views/payment-type/paymenttype.module";
 
 @NgModule({
@@ -50,12 +46,8 @@ import {PaymenttypeModule} from "./views/payment-type/paymenttype.module";
     MatInputModule,
     FormsModule,
     DashboardModule,
-    CertificatesModule,
-    CsrModule,
     MatCardModule,
     ReactiveFormsModule,
-    TokensModule,
-    LogsModule,
     PaymenttypeModule
   ],
   bootstrap: [AppComponent]
