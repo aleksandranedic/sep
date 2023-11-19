@@ -28,7 +28,6 @@ public class BankController {
         return bankService.payWithCard(method, cardPaymentDTO);
     }
 
-
     @PostMapping("/payment/issuer/")
     public ResponseEntity<PCCResponseDTO> issuerPay(@RequestBody PCCPayloadDTO pccPayloadDTO) {
         return bankService.issuerPay(pccPayloadDTO);

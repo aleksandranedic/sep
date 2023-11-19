@@ -23,6 +23,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "net": "^1.0.2",
+    "qrcode": "^1.5.3",
     "rxjs": "~7.5.0",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
