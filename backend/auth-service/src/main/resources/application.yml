@@ -32,17 +32,16 @@ spring:
       ddl-auto: create-drop
     show-sql: 'false'
     open-in-view: true
-  servlet:
   multipart:
     max-file-size: 100MB
     max-request-size: 100MB
   devtools:
     remote:
       secret: "secret"
-#  sql:
-#    init:
-#      data-locations: classpath:/data-postgres.sql
-#      mode: always
+  #  sql:
+  #    init:
+  #      data-locations: classpath:/data-postgres.sql
+  #      mode: always
   cache:
     jcache:
       config: classpath:ehcache.xml

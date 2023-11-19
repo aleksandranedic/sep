@@ -6,6 +6,6 @@ import retrofit2.http.Path;
 
 public interface AuthServiceClient {
 
-    @GET("auth-service/user/{id}")
+    @GET("auth-service/user/pera/{id}")
     Call<Integer> getUser(@Path("id") Long userId);
 }

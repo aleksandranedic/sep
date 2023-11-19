@@ -54,15 +54,7 @@ public class SecurityConfig {
                 .httpBasic()
                     .disable()
                 .exceptionHandling()
-                    .authenticationEntryPoint(new RestAuthenticationEntryPoint())
-                    .and()
-                .authorizeHttpRequests()
-                    .requestMatchers("/auth/**", "/devices/handshake/device/**", "/monitor/send")
-                        .permitAll()
-                    .requestMatchers("/property/invite/verify")
-                        .permitAll()
-                    .anyRequest()
-                        .authenticated();
+                    .authenticationEntryPoint(new RestAuthenticationEntryPoint());
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
