@@ -2,13 +2,14 @@ package com.example.paymentserviceprovider.controller;
 
 import com.example.paymentserviceprovider.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/api/payment")
+@RequestMapping(path = "/api/payment", consumes = MediaType.APPLICATION_JSON_VALUE)
 public class PaymentController {
 
     @Autowired

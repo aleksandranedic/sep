@@ -16,12 +16,6 @@ public class AuthController {
 
     private final AuthClientProxy authClientProxy;
 
-//    @PostMapping("/restaurant")
-//    public ResponseEntity<RestaurantDto> createRestaurant(@Valid @RequestBody CreateRestaurantRequest createRestaurantRequest) {
-//        Optional<RestaurantDto> newRestaurant = backOfficeClientProxy.createRestaurant(createRestaurantRequest);
-//        return newRestaurant.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
-//    }
-
     @GetMapping("/user")
     public ResponseEntity<Integer> getRestaurants() {
         Optional<Integer> user = authClientProxy.createUser(5L);

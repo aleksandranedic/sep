@@ -23,8 +23,8 @@ export class PaymentService {
     return this.http.get<string>(this.paymentUrl, AuthService.getHttpOptions());
   }
 
-  public proceedPayment(method: string, req: Map<String, Object>): Observable<Map<string, Object>> {
+  public proceedPayment(method: string, req: any): Observable<any> {
     const url = `${this.paymentUrl}/${method}`;
-    return this.http.post<Map<string, Object>>(url, req, AuthService.getHttpOptions());
+    return this.http.post<any>(url, req, AuthService.getHttpOptions());
   }
 }

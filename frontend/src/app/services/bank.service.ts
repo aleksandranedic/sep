@@ -23,7 +23,7 @@ export class BankService {
   }
 
   public pay(method: string, pspPaymentDTO: PSPPaymentDTO): Observable<PaymentResponseDTO> {
-    const url = `${this.bankUrl}/pay/${method}`;
+    const url = `${this.bankUrl}/pay/${method}/`;
     return this.http.post<PaymentResponseDTO>(url, pspPaymentDTO, AuthService.getHttpOptions());
   }
 

@@ -65,6 +65,7 @@ public class PaymentService {
         Map<String, String> merchantInfo = new HashMap<>();
         String merchantOrderId = createMerchantOrderId();
         String merchantOrderTimestamp = LocalDateTime.now().toString();
+        reqBody.forEach((key, value) -> merchantInfo.put(key, value.toString()));
         merchantInfo.put("merchantOrderId", merchantOrderId);
         merchantInfo.put("merchantTimestamp", merchantOrderTimestamp);
         saveTransaction(merchantOrderId, merchantOrderTimestamp, reqBody);

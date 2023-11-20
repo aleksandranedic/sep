@@ -1,16 +1,15 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {BankService} from "../../../../services/bank.service";
-import {CardPaymentDTO} from "../../../../model/BankDtos";
+import {BankService} from "../../services/bank.service";
+import {CardPaymentDTO} from "../../model/BankDtos";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-credit-card-dialog',
-  templateUrl: './credit-card-dialog.component.html',
-  styleUrls: ['./credit-card-dialog.component.css']
+  selector: 'app-pay-card',
+  templateUrl: './pay-card.component.html',
+  styleUrls: ['./pay-card.component.css']
 })
-export class CreditCardDialogComponent {
-  @Input() paymentId: any;
-
+export class PayCardComponent {
   formGroup = this._formBuilder.group({
     nameFormControl: ['email', [Validators.required]],
     cardNumberFormControl: ['cardNumber', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
@@ -23,11 +22,12 @@ export class CreditCardDialogComponent {
   cardNumber = '';
   expirationDate = '';
 
-  constructor(private _formBuilder: FormBuilder, private bankService: BankService) {
+  constructor(private _formBuilder: FormBuilder, private bankService: BankService, private router: ActivatedRoute) {
   }
 
   pay() {
-    let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, this.paymentId, Number(this.expirationDate.split('/')[0]), Number(this.expirationDate.split('/')[1]));
+    const paymentId = this.router.snapshot.paramMap.get('id') ?? '';
+    let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, paymentId, 2, 2024);
     this.bankService.payWithCardQR("card", card).subscribe({
       next: (value) => console.log("ALL GOOD", value),
       error: (err) => console.log(err)

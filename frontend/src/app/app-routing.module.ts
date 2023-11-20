@@ -11,6 +11,7 @@ import {
   VerificationScreenContainerComponent
 } from "./views/verification-screen/container/verification-screen-container/verification-screen-container.component";
 import {PaymentTypeContainer} from "./views/payment-type/container/payment-type.component";
+import {PayCardComponent} from "./views/pay-card/pay-card.component";
 
 const routes: Routes = [
   {path: '', component: HomepageContainerComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
     data: {roles: ['ROLE_PROPERTY_OWNER', 'ROLE_ADMIN']}
   },
   {path: 'registration/verification', component: VerificationScreenContainerComponent},
+  {path: 'pay/card/:id', component: PayCardComponent},
   {path: 'payment', component: PaymentTypeContainer},
   {path: '403', component: NotAuthorizedPageComponent},
   {path: '**', component: NotFoundPageComponent}

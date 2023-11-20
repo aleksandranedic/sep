@@ -4,10 +4,12 @@ import com.example.paymentserviceprovider.model.paymentRegistry.PaymentServiceRe
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -19,16 +21,22 @@ public class PaymentServiceProviderApplication {
 
     @PostConstruct
     private static void registerPaymentServices() {
-        try (BufferedReader br = new BufferedReader(new FileReader("paymentRegistry.csv"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                System.out.println(Arrays.toString(values));
-                PaymentServiceRegistry.registerNewPaymentService(values[0], new PaymentServiceRegistry.PaymentDescriptor(values[1]));
+        String filePath = "paymentRegistry.csv";
+        Resource resource = new ClassPathResource(filePath);
+
+        if (resource.exists()) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] values = line.split(",");
+                    System.out.println(Arrays.toString(values));
+                    PaymentServiceRegistry.registerNewPaymentService(values[0], new PaymentServiceRegistry.PaymentDescriptor(values[1]));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return;
+        } else {
+            System.err.println("File not found: " + filePath);
         }
     }
 }
