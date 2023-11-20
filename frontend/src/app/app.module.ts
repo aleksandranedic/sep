@@ -21,12 +21,14 @@ import {DashboardModule} from "./views/dashboard/dashboard.module";
 import {MatCardModule} from "@angular/material/card";
 import {VerificationpageModule} from "./views/verification-screen/verificationpage.module";
 import {PaymenttypeModule} from "./views/payment-type/paymenttype.module";
+import { PayCardComponent } from './views/pay-card/pay-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
     NotAuthorizedPageComponent,
+    PayCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -159,7 +159,6 @@ public class BankService {
         Optional<User> optionalMerchant = userRepo.findById(transaction.getUserId());
         if (optionalMerchant.isEmpty()) {
             return ResponseEntity.badRequest().body(new CardPaymentResponseDTO(response.getErrorUrl()));
-
         }
         User merchant = optionalMerchant.get();
         if (isValidCardInfoAndAmount(cardInfo, buyer.getAmount(), transaction.getAmount())) {
