@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {BankService} from "../../services/bank.service";
 import {CardPaymentDTO} from "../../model/BankDtos";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-pay-card',
@@ -22,14 +22,16 @@ export class PayCardComponent {
   cardNumber = '';
   expirationDate = '';
 
-  constructor(private _formBuilder: FormBuilder, private bankService: BankService, private router: ActivatedRoute) {
+  constructor(private _formBuilder: FormBuilder, private bankService: BankService, private route: Router, private router: ActivatedRoute) {
   }
 
   pay() {
     const paymentId = this.router.snapshot.paramMap.get('id') ?? '';
     let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, paymentId, Number(this.expirationDate.split("/")[0]), Number(this.expirationDate.split("/")[1]));
     this.bankService.payWithCardQR("card", card).subscribe({
-      next: (value) => console.log("ALL GOOD", value),
+      next: (value) => {
+        this.route.navigate([value.redirectionUrl]);
+      },
       error: (err) => console.log(err)
     });
   }
