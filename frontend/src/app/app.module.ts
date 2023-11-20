@@ -22,6 +22,9 @@ import {MatCardModule} from "@angular/material/card";
 import {VerificationpageModule} from "./views/verification-screen/verificationpage.module";
 import {PaymenttypeModule} from "./views/payment-type/paymenttype.module";
 import { PayCardComponent } from './views/pay-card/pay-card.component';
+import { PaymentSuccessComponent } from './views/payment-success/payment-success.component';
+import { PaymentFailedComponent } from './views/payment-failed/payment-failed.component';
+import { PaymentErrorComponent } from './views/payment-error/payment-error.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { PayCardComponent } from './views/pay-card/pay-card.component';
     NotFoundPageComponent,
     NotAuthorizedPageComponent,
     PayCardComponent,
+    PaymentSuccessComponent,
+    PaymentFailedComponent,
+    PaymentErrorComponent,
   ],
   imports: [
     BrowserModule,

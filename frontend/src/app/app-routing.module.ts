@@ -12,6 +12,9 @@ import {
 } from "./views/verification-screen/container/verification-screen-container/verification-screen-container.component";
 import {PaymentTypeContainer} from "./views/payment-type/container/payment-type.component";
 import {PayCardComponent} from "./views/pay-card/pay-card.component";
+import {PaymentSuccessComponent} from "./views/payment-success/payment-success.component";
+import {PaymentFailedComponent} from "./views/payment-failed/payment-failed.component";
+import {PaymentErrorComponent} from "./views/payment-error/payment-error.component";
 
 const routes: Routes = [
   {path: '', component: HomepageContainerComponent},
@@ -23,6 +26,9 @@ const routes: Routes = [
   },
   {path: 'registration/verification', component: VerificationScreenContainerComponent},
   {path: 'pay/card/:id', component: PayCardComponent},
+  {path: 'payment/success', component: PaymentSuccessComponent},
+  {path: 'payment/failed', component: PaymentFailedComponent},
+  {path: 'payment/error', component: PaymentErrorComponent},
   {path: 'payment', component: PaymentTypeContainer},
   {path: '403', component: NotAuthorizedPageComponent},
   {path: '**', component: NotFoundPageComponent}

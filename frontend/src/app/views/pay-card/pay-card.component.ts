@@ -27,7 +27,7 @@ export class PayCardComponent {
 
   pay() {
     const paymentId = this.router.snapshot.paramMap.get('id') ?? '';
-    let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, paymentId, 2, 2024);
+    let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, paymentId, Number(this.expirationDate.split("/")[0]), Number(this.expirationDate.split("/")[1]));
     this.bankService.payWithCardQR("card", card).subscribe({
       next: (value) => console.log("ALL GOOD", value),
       error: (err) => console.log(err)

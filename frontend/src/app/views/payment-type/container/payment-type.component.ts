@@ -20,7 +20,7 @@ export class PaymentTypeContainer {
 
   creditCard() {
     let req = {
-      "merchantId": "655a84637287ff66200eeead",
+      "merchantId": "655bc6821c76400a7ecc8722",
       "merchantPassword": "lala",
       "amount": 350
     };

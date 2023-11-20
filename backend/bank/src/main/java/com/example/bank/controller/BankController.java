@@ -38,7 +38,7 @@ public class BankController {
         User user = new User("lala", 10000, "1", "Agencija za izdavanje zakona");
         userRepo.save(user);
 
-        CardInfo ci = new CardInfo("0000111122223333", "460", "Smilja", 11, 23);
+        CardInfo ci = new CardInfo("0000111122223333", "460", "Smilja", 11, 2024);
         User buyer = new User("lele", 5000, ci, "1", "Smilja Smiljic");
         userRepo.save(buyer);
     }
