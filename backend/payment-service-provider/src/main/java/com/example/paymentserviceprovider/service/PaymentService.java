@@ -40,9 +40,9 @@ public class PaymentService {
 
         Map<String, String> merchantInfo = createAndSaveMerchantTransaction(req);
         req.putAll(merchantInfo);
-        req.put("successUrl", "http://localhost:4200/payment/success");
-        req.put("failedUrl", "http://localhost:4200/payment/failed");
-        req.put("errorUrl", "http://localhost:4200/payment/error");
+        req.put("successUrl", "payment/success");
+        req.put("failedUrl", "payment/failed");
+        req.put("errorUrl", "payment/error");
 
         Call<Map<String, Object>> call = retrofitPayment.forwardPayment(url, req);
 

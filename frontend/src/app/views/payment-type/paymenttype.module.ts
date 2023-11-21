@@ -14,14 +14,12 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {PaymentTypeContainer} from "./container/payment-type.component";
-import { CreditCardDialogComponent } from './dialogs/credit-card-dialog/credit-card-dialog.component';
 import { QrCodeComponent } from './dialogs/qr-code/qr-code.component';
 import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 
 @NgModule({
   declarations: [
     PaymentTypeContainer,
-    CreditCardDialogComponent,
     QrCodeComponent,
   ],
     imports: [

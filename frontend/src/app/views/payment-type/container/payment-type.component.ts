@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {CreditCardDialogComponent} from "../dialogs/credit-card-dialog/credit-card-dialog.component";
 import {PaymentService} from "../../../services/payment.service";
+import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
 
 @Component({
   selector: 'app-payment-type',
@@ -34,5 +34,9 @@ export class PaymentTypeContainer {
       },
       error: (err) => console.log(err)
     })
+  }
+
+  qrCode() {
+    this.dialog.open(QrCodeComponent);
   }
 }

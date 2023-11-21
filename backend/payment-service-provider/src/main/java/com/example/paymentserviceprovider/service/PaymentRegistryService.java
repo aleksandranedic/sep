@@ -13,6 +13,7 @@ public class PaymentRegistryService {
 
     @Autowired
     PaymentRegistryRepo paymentRegistryRepo;
+
     public void loadPaymentRegistry() {
         List<PaymentRegistry> registries = paymentRegistryRepo.findAll();
         for (PaymentRegistry pr : registries) {

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {BankService} from "../../services/bank.service";
-import {CardPaymentDTO} from "../../model/BankDtos";
+import {CardPaymentDTO, CardPaymentResponseDTO} from "../../model/BankDtos";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -29,10 +29,13 @@ export class PayCardComponent {
     const paymentId = this.router.snapshot.paramMap.get('id') ?? '';
     let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, paymentId, Number(this.expirationDate.split("/")[0]), Number(this.expirationDate.split("/")[1]));
     this.bankService.payWithCardQR("card", card).subscribe({
-      next: (value) => {
+      next: (value: CardPaymentResponseDTO) => {
         this.route.navigate([value.redirectionUrl]);
       },
-      error: (err) => console.log(err)
+      error: (err) => {
+        console.log(err);
+        this.route.navigate([err.redirectionUrl]);
+      }
     });
   }
 }
