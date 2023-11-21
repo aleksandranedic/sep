@@ -11,6 +11,12 @@ import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
 })
 export class PaymentTypeContainer {
 
+  req = {
+    "merchantId": "655bc6821c76400a7ecc8722",
+    "merchantPassword": "lala",
+    "amount": 350
+  };
+
   constructor(private route: Router, public dialog: MatDialog, private paymentService: PaymentService) {
   }
 
@@ -19,13 +25,7 @@ export class PaymentTypeContainer {
   }
 
   creditCard() {
-    let req = {
-      "merchantId": "655bc6821c76400a7ecc8722",
-      "merchantPassword": "lala",
-      "amount": 350
-    };
-
-    this.paymentService.proceedPayment("card", req).subscribe({
+    this.paymentService.proceedPayment("card", this.req).subscribe({
       next: (value: any) => {
         const url = this.route.serializeUrl(
           this.route.createUrlTree([value["paymentUrl"].slice(22) + '/' + value["paymentId"]])
@@ -38,5 +38,23 @@ export class PaymentTypeContainer {
 
   qrCode() {
     this.dialog.open(QrCodeComponent);
+  }
+
+  crypto() {
+    this.paymentService.proceedPayment("crypto", this.req).subscribe({
+      next: (value: any) => {
+        console.log(value);
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  paypal() {
+    this.paymentService.proceedPayment("paypal", this.req).subscribe({
+      next: (value: any) => {
+        console.log(value);
+      },
+      error: (err) => console.log(err)
+    })
   }
 }
