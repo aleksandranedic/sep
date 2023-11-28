@@ -19,12 +19,5 @@ public class PaymentRegistryService {
         for (PaymentRegistry pr : registries) {
             PaymentServiceRegistry.registerNewPaymentService(pr.getKey(), new PaymentServiceRegistry.PaymentDescriptor(pr.getUrl()));
         }
-        System.out.println(PaymentServiceRegistry.getDescriptor("card"));
-        System.out.println(PaymentServiceRegistry.getDescriptor("qr"));
-
-        System.out.println(PaymentServiceRegistry.getDescriptor("paypal"));
-
-        System.out.println(PaymentServiceRegistry.getDescriptor("crypto"));
-
     }
 }
