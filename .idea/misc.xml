@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/backend/paypal-service/pom.xml" />
         <option value="$PROJECT_DIR$/backend/shared/pom.xml" />
         <option value="$PROJECT_DIR$/backend/bank/pom.xml" />
+        <option value="$PROJECT_DIR$/backend/payment-crypto-service/pom.xml" />
       </list>
     </option>
   </component>

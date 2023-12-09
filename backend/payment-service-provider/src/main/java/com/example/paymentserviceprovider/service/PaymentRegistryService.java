@@ -13,17 +13,11 @@ public class PaymentRegistryService {
 
     @Autowired
     PaymentRegistryRepo paymentRegistryRepo;
+
     public void loadPaymentRegistry() {
         List<PaymentRegistry> registries = paymentRegistryRepo.findAll();
         for (PaymentRegistry pr : registries) {
             PaymentServiceRegistry.registerNewPaymentService(pr.getKey(), new PaymentServiceRegistry.PaymentDescriptor(pr.getUrl()));
         }
-        System.out.println(PaymentServiceRegistry.getDescriptor("card"));
-        System.out.println(PaymentServiceRegistry.getDescriptor("qr"));
-
-        System.out.println(PaymentServiceRegistry.getDescriptor("paypal"));
-
-        System.out.println(PaymentServiceRegistry.getDescriptor("crypto"));
-
     }
 }

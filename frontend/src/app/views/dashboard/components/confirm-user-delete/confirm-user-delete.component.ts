@@ -5,7 +5,6 @@ import {AuthService} from "../../../../services/auth.service";
 import {UserService} from "../../../../services/user.service";
 import {MatDialogRef} from "@angular/material/dialog";
 import {UserDetailsDialogComponent} from "../user-details-dialog/user-details-dialog.component";
-import {PropertyResponse} from "../../../../model/Property";
 
 @Component({
   selector: 'app-confirm-user-delete',
@@ -15,7 +14,6 @@ import {PropertyResponse} from "../../../../model/Property";
 export class ConfirmUserDeleteComponent implements OnInit{
   @Input() userEmail: string = ""
   @Input() parentDialog!: MatDialogRef<UserDetailsDialogComponent>;
-  properties: PropertyResponse[] = []
 
   constructor(
     @Inject(MatSnackBar) private _snackBar: MatSnackBar,

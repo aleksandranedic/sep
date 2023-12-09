@@ -12,6 +12,7 @@ public class PaymentRegistryController {
 
     @Autowired
     PaymentRegistryService paymentRegistryService;
+
     @GetMapping("/refresh")
     public void refreshPaymentServices() {
         paymentRegistryService.loadPaymentRegistry();

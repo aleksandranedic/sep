@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/backend/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/backend/auth-service/auth-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/bank/bank.iml" filepath="$PROJECT_DIR$/backend/bank/bank.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/payment-card-center/payment-card-center.iml" filepath="$PROJECT_DIR$/backend/payment-card-center/payment-card-center.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/payment-crypto-service/payment-crypto-service.iml" filepath="$PROJECT_DIR$/backend/payment-crypto-service/payment-crypto-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/payment-service-provider/payment-service-provider.iml" filepath="$PROJECT_DIR$/backend/payment-service-provider/payment-service-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/paypal-service/paypal-service.iml" filepath="$PROJECT_DIR$/backend/paypal-service/paypal-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/sep.iml" filepath="$PROJECT_DIR$/.idea/sep.iml" />
