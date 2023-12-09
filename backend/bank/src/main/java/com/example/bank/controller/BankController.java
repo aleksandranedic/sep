@@ -19,17 +19,18 @@ public class BankController {
     UserRepo userRepo;
 
     @PostMapping("/pay/{method}/")
-    public ResponseEntity<PaymentResponseDTO> pay(@PathVariable String method, @RequestBody PSPPaymentDTO pspPaymentDTO) {
+    public ResponseEntity<?> pay(@PathVariable String method, @RequestBody PSPPaymentDTO pspPaymentDTO) {
         return bankService.createFullPayment(method, pspPaymentDTO);
     }
 
     @PostMapping("/{method}/payment")
-    public ResponseEntity<CardPaymentResponseDTO> payWithCardQR(@PathVariable String method, @RequestBody CardPaymentDTO cardPaymentDTO) {
+    public ResponseEntity<?> payWithCardQR(@PathVariable String method, @RequestBody CardPaymentDTO cardPaymentDTO) {// CardPaymentResponseDTO
         return bankService.payWithCard(method, cardPaymentDTO);
     }
 
-    @PostMapping("/payment/issuer")
-    public ResponseEntity<PCCResponseDTO> issuerPay(@RequestBody PCCPayloadDTO pccPayloadDTO) {
+    @PostMapping("/payment/issuer/")
+    public ResponseEntity<?> issuerPay(@RequestBody PCCPayloadDTO pccPayloadDTO) { //PCCResponseDTO
+        System.out.println(pccPayloadDTO);
         return bankService.issuerPay(pccPayloadDTO);
     }
 
