@@ -25,6 +25,7 @@ import { PayCardComponent } from './views/pay-card/pay-card.component';
 import { PaymentSuccessComponent } from './views/payment-success/payment-success.component';
 import { PaymentFailedComponent } from './views/payment-failed/payment-failed.component';
 import { PaymentErrorComponent } from './views/payment-error/payment-error.component';
+import { PaymentSubscriptionComponent } from './views/payment-subscription/payment-subscription.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PaymentErrorComponent } from './views/payment-error/payment-error.compo
     PaymentSuccessComponent,
     PaymentFailedComponent,
     PaymentErrorComponent,
+    PaymentSubscriptionComponent,
   ],
   imports: [
     BrowserModule,

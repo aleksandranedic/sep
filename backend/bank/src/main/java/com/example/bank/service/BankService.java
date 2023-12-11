@@ -295,6 +295,7 @@ public class BankService {
         Transaction transaction = new Transaction(paymentDTO.getMerchantId(), paymentId, paymentDTO.getAmount(), paymentDTO.getMerchantOrderId(), paymentDTO.getMerchantTimestamp(), bankId);
         return transactionRepo.save(transaction);
     }
+
     private String findUrl(String method, PaymentDTO paymentDTO) {
         if (method.equalsIgnoreCase("card")) {
             return "http://localhost:4200/pay/card";

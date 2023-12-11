@@ -1,0 +1,31 @@
+<img src="../../../../assets/images/background-line.jpg" class="dashboard-background" alt="dashboard-background"/>
+
+<app-sidebar currentPage="payment"></app-sidebar>
+<div style="margin-left: 90px; margin-right: 10px; margin-top: -80px">
+  <h1 style="font-weight: 500; margin-left: 10px; color: white">Subscriptions</h1>
+
+  <mat-card style="padding: 0;">
+    <form style="margin-top: 10px; margin-bottom: 10px">
+
+      <div *ngFor="let service of services">
+        <div [class]="{'selected': service.selected}" style="padding: 20px; display: flex; align-items: center;">
+          <label style="display: flex; align-items: center;">
+            <img style="height: 30px; margin-right: 10px;" [src]="service.image" alt="{{service.name}}">
+            <input type="checkbox" [(ngModel)]="service.selected" name="{{service.name}}">
+            <span style="margin-left: 10px;">{{service.name}}</span>
+          </label>
+
+          <div style="font-size: 12px; margin-left: 40px;">
+            <label>{{service.text}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-left: 15px; margin-top: 10px;">
+        <button type="button" mat-raised-button (click)="save()" style="margin-right: 15px">
+          Save
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

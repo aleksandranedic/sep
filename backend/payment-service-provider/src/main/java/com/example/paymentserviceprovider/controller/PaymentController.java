@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,14 +16,14 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
-    @PostMapping("/subscribe")
-    public ResponseEntity<String> subscribeToMethod(@RequestBody String method) {
-        return ResponseEntity.ok(method);
+    @GetMapping
+    public List<String> getSubscriptions() {
+        return List.of();
     }
 
-    @PostMapping("/remove")
-    public ResponseEntity<String> subscribeToRemove(String method) {
-        return ResponseEntity.ok(method);
+    @PostMapping
+    public void override(@RequestBody List<String> services) {
+        System.out.println(services);
     }
 
     @PostMapping("/{method}")
