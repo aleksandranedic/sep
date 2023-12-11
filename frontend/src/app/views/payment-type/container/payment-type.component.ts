@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {PaymentService} from "../../../services/payment.service";
@@ -10,6 +10,8 @@ import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
   styleUrls: ['./payment-type.component.css']
 })
 export class PaymentTypeContainer {
+
+  @Input() price = 0;
 
   req = {
     "merchantId": "655bc6821c76400a7ecc8722",

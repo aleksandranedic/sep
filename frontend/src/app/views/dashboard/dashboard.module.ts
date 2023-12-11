@@ -17,6 +17,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { UserDetailsDialogComponent } from './components/user-details-dialog/user-details-dialog.component';
 import { ConfirmUserDeleteComponent } from './components/confirm-user-delete/confirm-user-delete.component';
+import { StoreComponent } from './components/store/store.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ConfirmUserDeleteComponent } from './components/confirm-user-delete/con
     UsersComponent,
     UserDetailsDialogComponent,
     ConfirmUserDeleteComponent,
+    StoreComponent,
   ],
   imports: [
     MatFormFieldModule,

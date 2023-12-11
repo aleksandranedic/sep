@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {
-    this.authUrl = environment.apiUrl + '/auth';
+    this.authUrl = environment.authUrl + '/auth';
   }
 
   public login(user: LoginCredentials): Observable<LoginResponseDto> {

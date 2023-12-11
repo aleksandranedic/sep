@@ -30,7 +30,6 @@ public class AuthenticationManagerWrapper implements AuthenticationManager {
     @Autowired
     private AppProperties appProperties;
 
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = (String) authentication.getPrincipal();

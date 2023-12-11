@@ -11,6 +11,7 @@ public class PaymentServiceProviderApplication {
 
     @Autowired
     PaymentRegistryService paymentRegistryService;
+
     public static void main(String[] args) {
         SpringApplication.run(PaymentServiceProviderApplication.class, args);
     }

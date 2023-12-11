@@ -15,7 +15,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/sep
     username: postgres
     password: postgres
-    sql.init.continue-on-error: true
   jpa:
     generate-ddl: 'true'
     properties:
@@ -38,10 +37,10 @@ spring:
   devtools:
     remote:
       secret: "secret"
-  #  sql:
-  #    init:
-  #      data-locations: classpath:/data-postgres.sql
-  #      mode: always
+    sql:
+      init:
+        data-locations: classpath:/data-postgres.sql
+        mode: always
   cache:
     jcache:
       config: classpath:ehcache.xml
@@ -56,8 +55,6 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/nutrical?createDatabaseIfNotExist=true
 #jpa:
 #hibernate:
 #dialect: org.hibernate.dialect.PostgreSQL95Dialect

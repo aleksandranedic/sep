@@ -22,6 +22,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import static com.example.authservice.util.LoginUtils.*;
@@ -55,11 +58,11 @@ public class AccountService {
         ));
         User user = (User) authentication.getPrincipal();
 
-        if (loginRequest.getCode() == null)
-            throw new Missing2FaCodeException("Please provide 2FA code along with the credentials to authenticate.");
-
-        if (!verify2FA(loginRequest.getCode(), user))
-            throw new Invalid2FaCodeException("Invalid 2FA code.", user);
+//        if (loginRequest.getCode() == null)
+//            throw new Missing2FaCodeException("Please provide 2FA code along with the credentials to authenticate.");
+//
+//        if (!verify2FA(loginRequest.getCode(), user))
+//            throw new Invalid2FaCodeException("Invalid 2FA code.", user);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = tokenProvider.createAccessToken(authentication);
@@ -158,5 +161,25 @@ public class AccountService {
         userToVerify.setPasswordSet(true);
         userRepository.save(userToVerify);
         mailingService.sendTwoFactorSetupKey(userToVerify);
+    }
+
+    public void initUsers() {
+        Lawyer admin = new Lawyer();
+        admin.setId(UUID.fromString("e3661c31-d1a4-47ab-94b6-1c6500dccf24"));
+        admin.setEmail("admin@authservice.com");
+        admin.setEmailVerified(true);
+        admin.setFirstName("Super");
+        admin.setLastName("Admin");
+        admin.setPassword("$2a$10$Qg.gpYTtZiVMJ6Fs9QbQA.BtCx4106oSj92X.A/Gv7iAEKQXAg.gy");
+        admin.setRole(Role.valueOf("ROLE_ADMIN"));
+        admin.setPhoneNumber("+48123456789");
+        admin.setCity("Warszawa");
+        admin.setPasswordSet(true);
+        admin.setLoginAttempts(0);
+        admin.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
+        admin.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
+        admin.setTwoFactorKey("F3OPURVECFTYHZXAM62YME7PVESQZXP7");
+        admin.setDeleted(false);
+        userRepository.save(admin);
     }
 }
