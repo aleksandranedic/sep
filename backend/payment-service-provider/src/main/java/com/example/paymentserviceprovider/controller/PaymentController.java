@@ -16,6 +16,16 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
+    @PostMapping("/subscribe")
+    public ResponseEntity<String> subscribeToMethod(@RequestBody String method) {
+        return ResponseEntity.ok(method);
+    }
+
+    @PostMapping("/remove")
+    public ResponseEntity<String> subscribeToRemove(String method) {
+        return ResponseEntity.ok(method);
+    }
+
     @GetMapping
     public List<String> getSubscriptions() {
         return List.of();
