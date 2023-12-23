@@ -31,6 +31,8 @@ public class PaypalService {
 
     public String createPayment(CreatePaymentDTO createPaymentDTO) throws IOException {
         double total = createPaymentDTO.getAmount();
+        Payee payee = new Payee();
+        payee.setEmail("lawagency@gmail.com");
         Amount amount = new Amount();
         amount.setCurrency(CURRENCY);
         total = BigDecimal.valueOf(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
@@ -38,6 +40,7 @@ public class PaypalService {
         Transaction transaction = new Transaction();
         transaction.setDescription(DESCRIPTION);
         transaction.setAmount(amount);
+        transaction.setPayee(payee);
 
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
@@ -100,10 +103,5 @@ public class PaypalService {
         com.example.paypalservice.model.Payment payment = paymentRepository.findByPaypalPaymentId(paymentDTO.getPaymentId());
         payment.setSuccessful(true);
         paymentRepository.save(payment);
-        transferMoneyToMerchant(payment);
-    }
-
-    private void transferMoneyToMerchant(com.example.paypalservice.model.Payment payment) {
-        
     }
 }
