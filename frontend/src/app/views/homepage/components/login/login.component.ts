@@ -65,7 +65,9 @@ export class LoginComponent {
     }
     this.authService.login(loginCredentials).subscribe({
       next: (loginResponse) => {
+        console.log(loginResponse)
         localStorage.setItem('userRole', loginResponse.role);
+        localStorage.setItem('id', loginResponse.id);
         this.router.navigate(['/dashboard']);
         this.loginFailed = false;
       }, error: () => {

@@ -46,7 +46,8 @@ export class AuthService {
   }
 
   public getCurrentlyLoggedUser(): Observable<User> {
-    return this.http.get<User>(this.authUrl + '/me', AuthService.getHttpOptions());
+    const id = localStorage.getItem("id");
+    return this.http.post<User>(this.authUrl + '/me', id, AuthService.getHttpOptions());
   }
 
   public getIsPasswordSet(verificationCode: String): Observable<boolean> {
@@ -60,11 +61,9 @@ export class AuthService {
   public static getHttpOptions(params: HttpParams = new HttpParams()) {
     return {
       headers: new HttpHeaders({
-        // 'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       }),
       params: params,
-      //withCredentials: true
     };
   }
 

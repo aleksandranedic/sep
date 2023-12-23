@@ -12,6 +12,7 @@ import com.example.authservice.security.AuthenticationManagerWrapper;
 import com.example.authservice.security.TokenAuthenticationFilter;
 import com.example.authservice.security.TokenProvider;
 import com.example.authservice.util.CookieUtils;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -67,7 +68,7 @@ public class AccountService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = tokenProvider.createAccessToken(authentication);
         Integer tokenExpirationSeconds = appProperties.getAuth().getTokenExpirationSeconds();
-        CookieUtils.addCookie(
+        Cookie cookie = CookieUtils.addCookie(
                 response,
                 TokenAuthenticationFilter.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
@@ -76,7 +77,7 @@ public class AccountService {
 
         Long expiresAt = tokenProvider.readClaims(accessToken).getExpiration().getTime();
 
-        return new LoginResponse(accessToken, expiresAt, user.getRole());
+        return new LoginResponse(user.getId().toString(), expiresAt, user.getRole());
     }
 
     public boolean verifyLogin(LoginVerificationRequest verificationRequest, User user) {
@@ -181,5 +182,9 @@ public class AccountService {
         admin.setTwoFactorKey("F3OPURVECFTYHZXAM62YME7PVESQZXP7");
         admin.setDeleted(false);
         userRepository.save(admin);
+    }
+
+    public User getLoggedUserInfo(String loggedUserId) {
+        return userRepository.getById(UUID.fromString(loggedUserId));
     }
 }

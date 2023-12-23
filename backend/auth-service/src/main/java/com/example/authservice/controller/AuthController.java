@@ -6,6 +6,7 @@ import com.example.authservice.dto.response.LoginResponse;
 import com.example.authservice.dto.response.UserInfoResponse;
 import com.example.authservice.model.User;
 import com.example.authservice.service.AccountService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -51,10 +52,9 @@ public class AuthController {
         return new ResponseOk("Email verified successfully.");
     }
 
-    @GetMapping("/me")
-    @PreAuthorize("isAuthenticated()")
-    public UserInfoResponse getLoggedUserInfo(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+    @PostMapping("/me")
+    public UserInfoResponse getLoggedUserInfo(@RequestBody String id) {
+        User user = accountService.getLoggedUserInfo(id);
         return new UserInfoResponse(user);
     }
 

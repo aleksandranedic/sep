@@ -23,9 +23,14 @@ public class BankController {
         return bankService.createFullPayment(method, pspPaymentDTO);
     }
 
-    @PostMapping("/{method}/payment")
-    public ResponseEntity<?> payWithCardQR(@PathVariable String method, @RequestBody CardPaymentDTO cardPaymentDTO) {// CardPaymentResponseDTO
-        return bankService.payWithCard(method, cardPaymentDTO);
+    @PostMapping("/card/payment")
+    public ResponseEntity<?> payWithCardQR(@RequestBody CardPaymentDTO cardPaymentDTO) {
+        return bankService.payWithCard(cardPaymentDTO);
+    }
+
+    @PostMapping("/qr/payment")
+    public ResponseEntity<?> payWithCardQR(@RequestBody String qrCode) {
+        return bankService.payWithQr(qrCode);
     }
 
     @PostMapping("/payment/issuer/")

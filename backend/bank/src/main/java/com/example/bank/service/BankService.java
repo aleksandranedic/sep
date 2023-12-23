@@ -16,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
@@ -46,7 +47,7 @@ public class BankService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Merchant not found", "url", pspPaymentDTO.getErrorUrl()));
     }
 
-    public ResponseEntity<?> payWithCard(String method, CardPaymentDTO cardPaymentDTO) {
+    public ResponseEntity<?> payWithCard(CardPaymentDTO cardPaymentDTO) {
         if (isSameBank(cardPaymentDTO)) {
             return pay(cardPaymentDTO);
         } else {
@@ -54,11 +55,67 @@ public class BankService {
         }
     }
 
+    public ResponseEntity<?> payWithQr(String qrCode) {
+        QrCodePaymentData data = decodePaymentString(qrCode);
+
+        Transaction transaction = new Transaction();
+        transaction.setAmount(data.getAmount());
+        User user = userRepo.findById("1").get();
+        CardInfo cardInfo = user.getCardInfo();
+        transaction.setBankId(user.getBankId());
+        transaction.setIssuerCardInfo(cardInfo);
+        transaction.setUserId(user.getId());
+        transactionRepo.save(transaction);
+        Optional<User> optionalBuyer = userRepo.findByCardInfo(cardInfo);
+        if (optionalBuyer.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Issuer not found"));
+        }
+        User buyer = optionalBuyer.get();
+        Optional<User> optionalMerchant = userRepo.findById(transaction.getUserId());
+        if (optionalMerchant.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Merchant not found"));
+        }
+        User merchant = optionalMerchant.get();
+//        if (isValidCardInfoAndAmount(cardInfo, buyer.getAmount(), transaction.getAmount())) {
+//            buyer.setAmount(buyer.getAmount() - transaction.getAmount());
+//            userRepo.save(buyer);
+//            addMerchantAmount(merchant, transaction.getAmount());
+//            transaction = generateAndSaveAcquirerInfo(transaction);
+//            return ResponseEntity.ok().body(new CardPaymentResponseDTO(response.getSuccessUrl(), transaction.getMerchantOrderId(), transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(), transaction.getPaymentId()));
+//        } else {
+//            return ResponseEntity.badRequest().body(Map.of("message", "Can't proceed payment. Check card info and amount on the account", "url", response.getFailedUrl()));
+//        }
+        return null;
+    }
+
+    public static QrCodePaymentData decodePaymentString(String paymentString) {
+        String[] pairs = paymentString.split("\\|");
+        Map<String, String> decodedValues = new HashMap<>();
+
+        for (String pair : pairs) {
+            String[] keyValue = pair.split(":");
+            if (keyValue.length == 2) {
+                decodedValues.put(keyValue[0], keyValue[1]);
+            }
+        }
+
+        QrCodePaymentData paymentData = new QrCodePaymentData();
+        paymentData.setVersion(decodedValues.get("V"));
+        paymentData.setCurrency(decodedValues.get("I").substring(0, 3));
+        paymentData.setAmount(Double.parseDouble(decodedValues.get("I").substring(3)));
+        paymentData.setReceiverAccount(decodedValues.get("R"));
+        paymentData.setReceiverName(decodedValues.get("N"));
+        paymentData.setPayerCity(decodedValues.get("P"));
+        paymentData.setPaymentCode(decodedValues.get("SF"));
+        paymentData.setPaymentPurpose(decodedValues.get("S"));
+
+        return paymentData;
+    }
+
     public ResponseEntity<?> issuerPay(PCCPayloadDTO pccPayloadDTO) {
         Optional<User> optionalBuyer = userRepo.findByCardInfo(pccPayloadDTO.getCardInfo());
         if (optionalBuyer.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Issuer not found"));
-
         }
         User buyer = optionalBuyer.get();
         System.out.println(buyer.getId());
@@ -71,7 +128,7 @@ public class BankService {
             transaction = generateAndSaveIssuerInfo(transaction);
             System.out.println("generisani issuer");
             return ResponseEntity.ok().body(new PCCResponseDTO(pccPayloadDTO.getAcquirerOrderId(), pccPayloadDTO.getAcquirerTimestamp(), transaction.getIssuerOrderId(), transaction.getIssuerTimeStamp().toString(), pccPayloadDTO.getAmount()));
-        }  else {
+        } else {
             System.out.println("nema para");
             return ResponseEntity.badRequest().body(Map.of("message", "Can't proceed payment. Check card info and amount on the account"));
         }
@@ -110,7 +167,7 @@ public class BankService {
             System.out.println(response);
             if (response.isSuccessful()) {
                 if (response.body() != null) {
-                    PCCResponseDTO res = (PCCResponseDTO)response.body();
+                    PCCResponseDTO res = (PCCResponseDTO) response.body();
                     return proceedAcquirerTransaction(responseUrl, res);
                 }
                 return ResponseEntity.status(500).body(Map.of("message", "Transaction failed, didn't get info from PCC", "url", responseUrl.getFailedUrl()));
@@ -176,7 +233,7 @@ public class BankService {
             addMerchantAmount(merchant, transaction.getAmount());
             transaction = generateAndSaveAcquirerInfo(transaction);
             return ResponseEntity.ok().body(new CardPaymentResponseDTO(response.getSuccessUrl(), transaction.getMerchantOrderId(), transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(), transaction.getPaymentId()));
-        }  else {
+        } else {
             return ResponseEntity.badRequest().body(Map.of("message", "Can't proceed payment. Check card info and amount on the account", "url", response.getFailedUrl()));
         }
     }
@@ -189,6 +246,7 @@ public class BankService {
     private CardInfo getCardInfoFromCardPaymentDTO(CardPaymentDTO cardPaymentDTO) {
         return new CardInfo(cardPaymentDTO.getPan(), cardPaymentDTO.getSecurityCode(), cardPaymentDTO.getCardHolderName(), cardPaymentDTO.getExpiryMonth(), cardPaymentDTO.getExpiryYear());
     }
+
     private Transaction generateAndSaveAcquirerInfo(Transaction transaction) {
         UserOrderInfo acquirerInfo = generateAcquirerInfo();
         transaction.setAcquirerOrderId(acquirerInfo.getId());
@@ -242,6 +300,7 @@ public class BankService {
         } while (!uniqueIdFound);
         return issuerOrderId;
     }
+
     private boolean isValidCardInfoAndAmount(CardInfo cardInfo, double buyerAmount, double transactionAmount) {
         if (transactionAmount > buyerAmount) return false;
         LocalDateTime currentDate = LocalDateTime.now();
@@ -252,7 +311,7 @@ public class BankService {
     }
 
     private boolean isSameBank(CardPaymentDTO paymentDTO) {
-        String pan = paymentDTO.getPan().substring(0,3);
+        String pan = paymentDTO.getPan().substring(0, 3);
         Optional<Banks> optionalBanks = banksRepo.findByPan(pan);
         if (optionalBanks.isEmpty()) {
             return true;
@@ -321,5 +380,4 @@ public class BankService {
         } while (!uniqueIdFound);
         return paymentId;
     }
-
 }

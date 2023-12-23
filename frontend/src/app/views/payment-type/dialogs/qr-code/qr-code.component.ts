@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as QRCode from 'qrcode';
+import {BrowserQRCodeReader} from '@zxing/browser';
+import {CardPaymentResponseDTO} from "../../../../model/BankDtos";
+import {Router} from "@angular/router";
+import {BankService} from "../../../../services/bank.service";
 
 @Component({
   selector: 'app-qr-code',
@@ -10,10 +14,13 @@ export class QrCodeComponent implements OnInit {
   @Input() receiverAccount: string = '';
   @Input() receiverName: string = '';
   @Input() currency: string = '';
-  @Input() amount: string = '';
+  @Input() amount: number = 0;
   @Input() payerCity: string = '';
   @Input() paymentCode: string = '';
   @Input() paymentPurpose: string = '';
+
+  constructor(private route: Router, private bankService: BankService) {
+  }
 
   ngOnInit() {
     this.generateQRCode();
@@ -44,5 +51,24 @@ export class QrCodeComponent implements OnInit {
       console.error('Missing required input fields');
       return '';
     }
+  }
+
+  scan() {
+    const codeReader = new BrowserQRCodeReader();
+    const qrCodeResult = codeReader.decodeFromCanvas(<HTMLCanvasElement>document.getElementById('qrcode'));
+    console.log(qrCodeResult.getText())
+    this.pay(qrCodeResult.getText())
+  }
+
+  pay(qrCode: string) {
+    this.bankService.payWithQR(qrCode).subscribe({
+      next: (value: CardPaymentResponseDTO) => {
+        this.route.navigate([value.redirectionUrl]);
+      },
+      error: (err) => {
+        console.log(err);
+        this.route.navigate([err.redirectionUrl]);
+      }
+    });
   }
 }
