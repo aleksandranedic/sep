@@ -1,0 +1,7 @@
+.payment-success {
+  margin: auto;
+  height: 100%;
+  text-align: center;
+  background-image: url('src/assets/images/living-room.jpg');
+  padding: 20px;
+}
