@@ -39,14 +39,16 @@ export class PaymentTypeContainer {
   }
 
   qrCode() {
-    let dialogRef = this.dialog.open(QrCodeComponent);
+    let dialogRef = this.dialog.open(QrCodeComponent, {
+      width: '400px'
+    });
     dialogRef.componentInstance.receiverAccount = '105000000000000029';
     dialogRef.componentInstance.receiverName = 'pera';
     dialogRef.componentInstance.currency = 'RSD';
-    dialogRef.componentInstance.amount = '10,00';
+    dialogRef.componentInstance.amount = this.price;
     dialogRef.componentInstance.payerCity = 'Beograd';
     dialogRef.componentInstance.paymentCode = '221';
-    dialogRef.componentInstance.paymentPurpose = 'test';
+    dialogRef.componentInstance.paymentPurpose = 'subscription';
   }
 
   crypto() {

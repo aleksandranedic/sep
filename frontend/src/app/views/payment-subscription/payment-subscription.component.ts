@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {PaymentService} from "../../services/payment.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-payment-subscription',
@@ -10,7 +11,7 @@ export class PaymentSubscriptionComponent {
 
   subscriptions = [];
 
-  constructor(private paymentService: PaymentService) {
+  constructor(private paymentService: PaymentService, private authService: AuthService) {
     paymentService.getSubscriptions().subscribe(services => console.log(services));
   }
 
@@ -48,6 +49,10 @@ export class PaymentSubscriptionComponent {
   save() {
     const selectedServices = this.services.filter(s => s.selected).map(s => s.code);
     console.log(selectedServices);
-    this.paymentService.save(selectedServices).subscribe(_ => alert('Saved!'));
+    this.authService.getCurrentlyLoggedUser().subscribe(res =>
+    {
+      console.log(res);
+      this.paymentService.save(selectedServices).subscribe(_ => alert('Saved!'));
+    });
   }
 }

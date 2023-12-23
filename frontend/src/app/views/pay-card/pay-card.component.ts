@@ -28,7 +28,7 @@ export class PayCardComponent {
   pay() {
     const paymentId = this.router.snapshot.paramMap.get('id') ?? '';
     let card = new CardPaymentDTO(this.cardNumber, this.cvv, this.name, paymentId, Number(this.expirationDate.split("/")[0]), Number(this.expirationDate.split("/")[1]));
-    this.bankService.payWithCardQR("card", card).subscribe({
+    this.bankService.payWithCard(card).subscribe({
       next: (value: CardPaymentResponseDTO) => {
         this.route.navigate([value.redirectionUrl]);
       },
