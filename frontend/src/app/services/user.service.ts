@@ -14,7 +14,7 @@ export class UserService {
   private readonly userUrl: string;
 
   constructor(private http: HttpClient) {
-    this.userUrl = environment.apiUrl + '/user';
+    this.userUrl = environment.authUrl + '/user';
   }
 
   public getLawyers(): Observable<User[]> {
@@ -33,5 +33,15 @@ export class UserService {
     return this.http.put<string>(this.userUrl, requestBody, AuthService.getHttpOptions());
   }
 
+  public getSubscriptions(): Observable<string[]> {
+    return this.http.get<string[]>(this.userUrl + '/subscriptions/' + localStorage.getItem("id"), AuthService.getHttpOptions());
+  }
 
+  public setSubscriptions(subscriptions: string[]): Observable<void> {
+    const body = {
+      'services': subscriptions,
+      'userId': localStorage.getItem("id")
+    }
+    return this.http.post<void>(this.userUrl + '/subscriptions', body, AuthService.getHttpOptions());
+  }
 }

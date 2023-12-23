@@ -165,23 +165,23 @@ public class AccountService {
     }
 
     public void initUsers() {
-        Lawyer admin = new Lawyer();
-        admin.setId(UUID.fromString("e3661c31-d1a4-47ab-94b6-1c6500dccf24"));
-        admin.setEmail("admin@authservice.com");
-        admin.setEmailVerified(true);
-        admin.setFirstName("Super");
-        admin.setLastName("Admin");
-        admin.setPassword("$2a$10$Qg.gpYTtZiVMJ6Fs9QbQA.BtCx4106oSj92X.A/Gv7iAEKQXAg.gy");
-        admin.setRole(Role.valueOf("ROLE_ADMIN"));
-        admin.setPhoneNumber("+48123456789");
-        admin.setCity("Warszawa");
-        admin.setPasswordSet(true);
-        admin.setLoginAttempts(0);
-        admin.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
-        admin.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
-        admin.setTwoFactorKey("F3OPURVECFTYHZXAM62YME7PVESQZXP7");
-        admin.setDeleted(false);
-        userRepository.save(admin);
+        Lawyer lawyer = new Lawyer();
+        lawyer.setId(UUID.fromString("e3661c31-d1a4-47ab-94b6-1c6500dccf24"));
+        lawyer.setEmail("admin@authservice.com");
+        lawyer.setEmailVerified(true);
+        lawyer.setFirstName("Super");
+        lawyer.setLastName("Admin");
+        lawyer.setPassword("$2a$10$Qg.gpYTtZiVMJ6Fs9QbQA.BtCx4106oSj92X.A/Gv7iAEKQXAg.gy");
+        lawyer.setRole(Role.valueOf("ROLE_ADMIN"));
+        lawyer.setPhoneNumber("+48123456789");
+        lawyer.setCity("Warszawa");
+        lawyer.setPasswordSet(true);
+        lawyer.setLoginAttempts(0);
+        lawyer.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
+        lawyer.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
+        lawyer.setTwoFactorKey("F3OPURVECFTYHZXAM62YME7PVESQZXP7");
+        lawyer.setDeleted(false);
+        userRepository.save(lawyer);
     }
 
     public User getLoggedUserInfo(String loggedUserId) {

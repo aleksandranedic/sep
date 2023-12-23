@@ -15,10 +15,6 @@ export class PaymentService {
     this.paymentUrl = environment.apiUrl + '/api/payment';
   }
 
-  public getSubscriptions(): Observable<string[]> {
-    return this.http.get<string[]>(this.paymentUrl, AuthService.getHttpOptions());
-  }
-
   public save(services: string[]): Observable<void> {
     return this.http.post<void>(this.paymentUrl, services, AuthService.getHttpOptions());
   }

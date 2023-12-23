@@ -83,10 +83,7 @@ public class UserService {
                 .forEach(subscriptionRepository::delete);
 
         paymentsToAdd.stream()
-                .map(paymentType -> Subscription.builder()
-                        .paymentType(paymentType)
-                        .userId(userId)
-                        .build())
+                .map(paymentType -> new Subscription(userId, paymentType))
                 .forEach(subscriptionRepository::save);
     }
 }

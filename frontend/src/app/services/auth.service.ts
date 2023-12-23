@@ -74,5 +74,4 @@ export class AuthService {
   public getRole() {
     return localStorage.getItem('userRole')
   }
-
 }

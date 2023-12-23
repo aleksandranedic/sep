@@ -44,8 +44,8 @@ public class UserController {
         return new ResponseOk("User logically deleted.");
     }
 
-    @GetMapping("/subscriptions")
-    public List<String> getSubscriptions(@RequestBody String userId) {
+    @GetMapping("/subscriptions/{userId}")
+    public List<String> getSubscriptions(@PathVariable String userId) {
         return userService.getSubscriptions(userId);
     }
 
