@@ -27,4 +27,9 @@ export class PaymentService {
     const url = `${this.paymentUrl}/${method}`;
     return this.http.post<any>(url, req, AuthService.getHttpOptions());
   }
+
+  public getPlanId(payload: any): Observable<any> {
+    const url = `${this.paymentUrl}/paypal-sub`;
+    return this.http.post<any>(url, payload, AuthService.getHttpOptions());
+  }
 }

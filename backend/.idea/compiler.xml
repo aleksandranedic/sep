@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="bank" />
+        <module name="auth-service" />
         <module name="paypal-service" />
         <module name="payment-crypto-service" />
         <module name="payment-card-center" />
@@ -16,7 +17,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="auth-service" target="17" />
       <module name="payment-card-service" target="17" />
     </bytecodeTargetLevel>
   </component>

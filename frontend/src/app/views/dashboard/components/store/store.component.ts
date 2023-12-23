@@ -22,6 +22,8 @@ export class StoreComponent {
   pay(amount: number): void {
     const dialogRef = this.dialog.open(PaymentTypeContainer);
     dialogRef.componentInstance.price = amount;
+    const services: string[] = this.services.filter(service => service.selected).map(serv => serv.name);
+    dialogRef.componentInstance.services = services;
   }
 
   payMonthly() {

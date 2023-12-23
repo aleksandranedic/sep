@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {PaymentService} from "../../../services/payment.service";
 import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
+import { PaypalSubComponent } from '../dialogs/paypal-sub/paypal-sub.component';
 
 @Component({
   selector: 'app-payment-type',
@@ -12,6 +13,7 @@ import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
 export class PaymentTypeContainer {
 
   @Input() price = 0;
+  @Input() services: string[] = []
 
   req = {
     "merchantId": "655bc6821c76400a7ecc8722",
@@ -61,11 +63,37 @@ export class PaymentTypeContainer {
   }
 
   paypal() {
-    this.paymentService.proceedPayment("paypal", this.req).subscribe({
+    this.paymentService.proceedPayment("paypal", {amount: this.price}).subscribe({
       next: (value: any) => {
         console.log(value);
       },
       error: (err) => console.log(err)
     })
+  }
+
+  paypalSubscribe() {
+    const payload = this.generateSubPayload();
+    const observable = this.paymentService.getPlanId(payload);
+    observable.subscribe(response => {
+      console.log(response)
+      console.log(response.planId)
+      let dialogRef = this.dialog.open(PaypalSubComponent, {
+        width: '400px'
+      });
+      dialogRef.componentInstance.services = this.services;
+      dialogRef.componentInstance.amount = this.price;
+      dialogRef.componentInstance.planId = response.planId;
+    })
+  }
+
+  generateSubPayload() {
+    return {
+       internet: this.services.filter(name => name.toLowerCase().includes("internet")).length > 0,
+       digital: this.services.filter(name => name.toLowerCase().includes("electronic ")).length > 0,
+       printed: this.services.filter(name => name.toLowerCase().includes("printed")).length > 0,
+       codification: this.services.filter(name => name.toLowerCase().includes("codification")).length > 0,
+       monthly: this.price < 200,
+       amount: this.price
+    }
   }
 }

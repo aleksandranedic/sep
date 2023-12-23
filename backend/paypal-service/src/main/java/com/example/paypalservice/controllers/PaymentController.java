@@ -1,6 +1,7 @@
 package com.example.paypalservice.controllers;
 
 import com.example.paypalservice.controllers.dto.CreatePaymentDTO;
+import com.example.paypalservice.controllers.dto.CreateSubscriptionDTO;
 import com.example.paypalservice.controllers.dto.PaymentDTO;
 import com.example.paypalservice.services.PaypalService;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,16 @@ public class PaymentController {
             String response = paypalService.createPayment(createPaymentDTO);
             return ResponseEntity.ok().body(Map.of("redirectURL", response));
         } catch (RuntimeException | IOException exception) {
+            return ResponseEntity.badRequest().body(Map.of("error", exception.getMessage()));
+        }
+    }
+
+    @PostMapping("/subscribe/")
+    public ResponseEntity<Map<String,String>> createSubscription(@RequestBody CreateSubscriptionDTO createSubscriptionDTO) {
+        try {
+            String response = paypalService.createSubscription(createSubscriptionDTO);
+            return ResponseEntity.ok().body(Map.of("planId", response));
+        } catch (RuntimeException exception) {
             return ResponseEntity.badRequest().body(Map.of("error", exception.getMessage()));
         }
     }

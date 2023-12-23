@@ -1,20 +1,31 @@
 package com.example.paypalservice.services;
 
 import com.example.paypalservice.controllers.dto.CreatePaymentDTO;
+import com.example.paypalservice.controllers.dto.CreateSubscriptionDTO;
 import com.example.paypalservice.controllers.dto.PaymentDTO;
+import com.example.paypalservice.model.SubscriptionPlan;
 import com.example.paypalservice.repository.PaymentRepository;
+import com.example.paypalservice.repository.SubscriptionPlanRepo;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PaypalService {
@@ -22,6 +33,8 @@ public class PaypalService {
     private APIContext apiContext;
     @Autowired
     private PaymentRepository paymentRepository;
+    @Autowired
+    private SubscriptionPlanRepo subscriptionPlanRepo;
     public static final String FRONTEND_URL = "http://localhost:4200/";
     public static final String CURRENCY = "USD";
     public static final String INTENT = "sale";
@@ -71,6 +84,17 @@ public class PaypalService {
         return null;
     }
 
+    public String createSubscription(CreateSubscriptionDTO createSubscriptionDTO) {
+        String name = createPlanName(createSubscriptionDTO);
+        Optional<SubscriptionPlan> spOpt = subscriptionPlanRepo.findByName(name);
+        if (spOpt.isEmpty()) {
+            String plan_id = createPlan(name, createSubscriptionDTO);
+            subscriptionPlanRepo.save(new SubscriptionPlan(name, plan_id, createSubscriptionDTO.getAmount()));
+            return plan_id;
+        }
+        return spOpt.get().getPlan_id();
+    }
+
     private void storePaymentInfo(double total, String merchantOrderId, String paypalPaymentId) {
         com.example.paypalservice.model.Payment payment = new com.example.paypalservice.model.Payment();
         payment.setAmount(total);
@@ -86,6 +110,7 @@ public class PaypalService {
         payment.setId(paymentDTO.getPaymentId());
         PaymentExecution paymentExecution = new PaymentExecution();
         paymentExecution.setPayerId(paymentDTO.getPayerId());
+        System.out.println(paymentDTO);
         try {
             Payment executedPayment = payment.execute(apiContext, paymentExecution);
             if (executedPayment.getState().equals("approved")) {
@@ -103,5 +128,78 @@ public class PaypalService {
         com.example.paypalservice.model.Payment payment = paymentRepository.findByPaypalPaymentId(paymentDTO.getPaymentId());
         payment.setSuccessful(true);
         paymentRepository.save(payment);
+    }
+
+    private String createPlanName(CreateSubscriptionDTO createSubscriptionDTO) {
+        String name = "";
+        if (createSubscriptionDTO.getDigital()) {
+            name = name + "digital";
+        }
+        if (createSubscriptionDTO.getInternet()) {
+            name = name + "internet";
+        }
+        if (createSubscriptionDTO.getCodification()) {
+            name = name + "codification";
+        }
+        if (createSubscriptionDTO.getPrinted()) {
+            name = name + "printed";
+        }
+        if (createSubscriptionDTO.getMonthly()) {
+            name = name + "monthly";
+        } else {
+            name = name + "yearly";
+        }
+        return name;
+    }
+
+    public String createPlan(String name, CreateSubscriptionDTO createSubscriptionDTO) {
+        Plan plan = new Plan();
+        plan.setName(name);
+        plan.setDescription("Basic subscription plan");
+        plan.setType("INFINITE"); // Set the plan type (INFINITE or FIXED)
+        plan.setPaymentDefinitions(Arrays.asList(
+                new PaymentDefinition()
+                        .setName("Regular Payment")
+                        .setType("REGULAR")
+                        .setFrequency("MONTH")
+                        .setFrequencyInterval("1")
+                        .setAmount(new Currency().setCurrency("USD").setValue(String.valueOf(createSubscriptionDTO.getAmount()))) // Set the amount
+        ));
+        plan.setMerchantPreferences(new MerchantPreferences()
+                .setReturnUrl(FRONTEND_URL + createSubscriptionDTO.getSuccessUrl()) // Set return URL
+                .setCancelUrl(FRONTEND_URL + createSubscriptionDTO.getFailedUrl()) // Set cancel URL
+                .setAutoBillAmount("YES") // Set automatic billing
+                .setInitialFailAmountAction("CONTINUE")
+                .setMaxFailAttempts("0")); // Set maximum failed attempts
+        plan.setState("ACTIVE");
+
+        try {
+            // Create the plan
+            Plan createdPlan = plan.create(apiContext);
+
+            if (createdPlan != null) {
+//                System.out.println("Plan created successfully");
+//                System.out.println(createdPlan);
+//                // Activate the plan (if necessary, for 'INFINITE' plans)
+//                createdPlan.setState("ACTIVE");
+//                List<Patch> patchRequest = new ArrayList<>();
+//                Patch patch = new Patch();
+//                patch.setPath("/");
+//                patch.setValue("{\"state\":\"ACTIVE\"}");
+//                patch.setOp("replace");
+//                patchRequest.add(patch);
+//                createdPlan.update(apiContext, patchRequest);
+
+                System.out.println("Plan activated successfully");
+                return createdPlan.getId();
+            } else {
+                // Handle plan creation error
+                System.err.println("Plan creation failed");
+                throw new RuntimeException("Error creating new plan");
+            }
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error creating new plan");
+        }
     }
 }

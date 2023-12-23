@@ -1,0 +1,26 @@
+<div style="padding: 20px">
+    <h2>Paypal subscriptions</h2>
+    <p>{{this.services}}</p>
+    <div id="paypal-button-container-P-0VN59074HS8405020MWDQNAQ"></div>
+    <div id="paypal-button-container"></div>
+<script>
+    alert("desilo")
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-0VN59074HS8405020MWDQNAQ'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-0VN59074HS8405020MWDQNAQ'); // Renders the PayPal button
+</script>
+</div>
