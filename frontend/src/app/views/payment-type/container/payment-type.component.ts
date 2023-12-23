@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {PaymentService} from "../../../services/payment.service";
 import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-payment-type',
@@ -13,13 +14,16 @@ export class PaymentTypeContainer {
 
   @Input() price = 0;
 
+  services: string[] = [];
+
   req = {
     "merchantId": "655bc6821c76400a7ecc8722",
     "merchantPassword": "lala",
     "amount": 350
   };
 
-  constructor(private route: Router, public dialog: MatDialog, private paymentService: PaymentService) {
+  constructor(private route: Router, public dialog: MatDialog, private paymentService: PaymentService, private userService: UserService) {
+    userService.getSubscriptions().subscribe(services => this.services = services);
   }
 
   goToPage(path: string) {

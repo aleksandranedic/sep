@@ -2,34 +2,26 @@
   <h3>To pay: ${{price}}</h3>
   <div class="row">
     <div class="col-md-6 text-center tile">
-      <img src="../../../../assets/images/credit-card.png" alt="credit-card" matTooltip="Credit cards offer a widely accepted and convenient payment method, allowing users to make purchases and
-        payments with ease. They provide a revolving line of credit, and transactions are often accompanied by various
-        security measures for user protection.">
+      <img src="../../../../assets/images/credit-card.png" alt="credit-card">
       <h4><b>Credit card</b></h4>
-      <button color="primary" (click)="creditCard()" mat-raised-button>Choose payment type</button>
+      <button [disabled]="services.indexOf('CARD') === -1" color="primary" (click)="creditCard()" mat-raised-button>Choose payment type</button>
     </div>
     <div class="col-md-6 text-center tile">
-      <img src="../../../../assets/images/qr-code.png" alt="qr-code" matTooltip="QR code payments have gained popularity for their simplicity and speed. Users can make transactions by scanning
-              QR codes, linking directly to their payment information, providing a seamless and efficient way to complete
-              purchases.">
+      <img src="../../../../assets/images/qr-code.png" alt="qr-code">
       <h4><b>QR Code</b></h4>
-      <button color="primary" (click)="qrCode()" mat-raised-button>Choose payment type</button>
+      <button [disabled]="services.indexOf('QR') === -1" color="primary" (click)="qrCode()" mat-raised-button>Choose payment type</button>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6 text-center tile">
-      <img src="../../../../assets/images/bitcoin.png" alt="bitcoin" matTooltip="Bitcoin, a decentralized digital currency, enables peer-to-peer transactions without the need for
-              intermediaries like banks. Known for its borderless nature and potential for value appreciation, Bitcoin has
-              become a popular choice for those seeking alternatives to traditional currencies.">
+      <img src="../../../../assets/images/bitcoin.png" alt="bitcoin">
       <h4><b>Bitcoin</b></h4>
-      <button color="primary" (click)="crypto()" mat-raised-button>Choose payment type</button>
+      <button [disabled]="services.indexOf('CRYPTO') === -1" color="primary" (click)="crypto()" mat-raised-button>Choose payment type</button>
     </div>
     <div class="col-md-6 text-center tile">
-      <img src="../../../../assets/images/paypal.png" alt="paypal" matTooltip="PayPal serves as a widely used online payment platform, allowing users to link their accounts or credit cards
-              for secure transactions. It provides an additional layer of privacy and is commonly utilized for online
-              purchases, money transfers, and business transactions.">
+      <img src="../../../../assets/images/paypal.png" alt="paypal">
       <h4><b>PayPal</b></h4>
-      <button color="primary" (click)="paypal()" mat-raised-button>Choose payment type</button>
+      <button [disabled]="services.indexOf('PAYPAL') === -1" color="primary" (click)="paypal()" mat-raised-button>Choose payment type</button>
     </div>
   </div>
 </mat-dialog-content>
