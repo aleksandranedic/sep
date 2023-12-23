@@ -28,8 +28,12 @@ export class BankService {
   }
 
   public payWithQR(qrCode: string): Observable<CardPaymentResponseDTO> {
+    const body = {
+      "userId": localStorage.getItem('id'),
+      "qrCode": qrCode
+    }
     const url = `${this.bankUrl}/qr/payment`;
-    return this.http.post<CardPaymentResponseDTO>(url, qrCode);
+    return this.http.post<CardPaymentResponseDTO>(url, body, AuthService.getHttpOptions());
   }
 
   public issuerPay(pccPayloadDTO: any): Observable<PCCResponseDTO> {

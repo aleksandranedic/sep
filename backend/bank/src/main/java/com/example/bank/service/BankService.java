@@ -55,12 +55,12 @@ public class BankService {
         }
     }
 
-    public ResponseEntity<?> payWithQr(String qrCode) {
-        QrCodePaymentData data = decodePaymentString(qrCode);
+    public ResponseEntity<?> payWithQr(QRPaymentDTO qrCode) {
+        QrCodePaymentData data = decodePaymentString(qrCode.getQrCode());
 
         Transaction transaction = new Transaction();
         transaction.setAmount(data.getAmount());
-        User user = userRepo.findById("1").get();
+        User user = userRepo.findById(qrCode.getUserId()).get();
         CardInfo cardInfo = user.getCardInfo();
         transaction.setBankId(user.getBankId());
         transaction.setIssuerCardInfo(cardInfo);

@@ -29,7 +29,7 @@ public class BankController {
     }
 
     @PostMapping("/qr/payment")
-    public ResponseEntity<?> payWithCardQR(@RequestBody String qrCode) {
+    public ResponseEntity<?> payWithCardQR(@RequestBody QRPaymentDTO qrCode) {
         return bankService.payWithQr(qrCode);
     }
 
@@ -42,6 +42,7 @@ public class BankController {
     @GetMapping("/add")
     public void addUser() {
         User user = new User("lala", 10000, "1", "Agencija za izdavanje zakona");
+        user.setId("123");
         userRepo.save(user);
 
         CardInfo ci = new CardInfo("0000111122223333", "460", "Smilja", 11, 2024);
