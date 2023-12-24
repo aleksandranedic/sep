@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/backend/shared/pom.xml" />
         <option value="$PROJECT_DIR$/backend/bank/pom.xml" />
         <option value="$PROJECT_DIR$/backend/payment-crypto-service/pom.xml" />
+        <option value="$PROJECT_DIR$/backend/discovery/pom.xml" />
       </list>
     </option>
   </component>

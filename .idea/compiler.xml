@@ -15,6 +15,7 @@
         <module name="payment-card-center" />
         <module name="api-gateway" />
         <module name="payment-service-provider" />
+        <module name="ServiceRegistrationAndDiscovery" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,11 +26,13 @@
       <module name="payment-crypto-service" target="17" />
       <module name="payment-service-provider" target="17" />
       <module name="paypal-service" target="17" />
+      <module name="ServiceRegistrationAndDiscovery" target="17" />
       <module name="shared" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ServiceRegistrationAndDiscovery" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="bank" options="-parameters" />
