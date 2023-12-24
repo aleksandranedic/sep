@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import static com.example.authservice.util.LoginUtils.*;
@@ -109,7 +110,7 @@ public class AccountService {
         userToVerify.unlockAccount();
         userToVerify.setEmailVerified(true);
         userRepository.save(userToVerify);
-        mailingService.sendTwoFactorSetupKey(userToVerify);
+//        mailingService.sendTwoFactorSetupKey(userToVerify);
     }
 
     private void checkEmailAvailability(String email) {
@@ -130,6 +131,8 @@ public class AccountService {
         Lawyer.setId(UUID.randomUUID());
         Lawyer.setRole(Role.ROLE_PROPERTY_OWNER);
         Lawyer.setEmail(createUserRequest.getEmail());
+        Lawyer.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
+        Lawyer.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
         Lawyer.setFirstName(createUserRequest.getFirstName());
         Lawyer.setLastName(createUserRequest.getLastName());
         Lawyer.setEmailVerified(false);
@@ -161,7 +164,7 @@ public class AccountService {
         userToVerify.setPassword(passwordEncoder.encode(setPasswordRequest.getPassword()));
         userToVerify.setPasswordSet(true);
         userRepository.save(userToVerify);
-        mailingService.sendTwoFactorSetupKey(userToVerify);
+//        mailingService.sendTwoFactorSetupKey(userToVerify);
     }
 
     public void initUsers() {

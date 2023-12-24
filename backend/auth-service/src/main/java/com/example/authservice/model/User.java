@@ -121,12 +121,12 @@ public abstract class User implements UserDetails {
     }
 
     public void lockAccount(String reason) {
-        setLockedUntil(Instant.MAX);
+        setLockedUntil(Instant.parse("9999-12-31T23:59:59Z"));
         setLockReason(reason);
     }
 
     public void unlockAccount() {
-        setLockedUntil(Instant.MIN);
+        setLockedUntil(Instant.parse("1111-12-31T23:59:59Z"));
         setLockReason(null);
     }
 }

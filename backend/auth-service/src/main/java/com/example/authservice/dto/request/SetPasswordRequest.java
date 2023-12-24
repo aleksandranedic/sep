@@ -1,6 +1,5 @@
 package com.example.authservice.dto.request;
 
-import com.example.authservice.validation.NotCommon;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -12,7 +11,6 @@ public class SetPasswordRequest {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{12,}$",
             message = "Password must have at least 12 characters, at least one uppercase letter, " +
                     "one lowercase letter, one digit, and one special character.")
-    @NotCommon
     private String password;
 
     @NotBlank
