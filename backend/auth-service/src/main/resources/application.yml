@@ -1,6 +1,8 @@
 server:
   port: 8001
 spring:
+  application:
+      name: auth
   mail:
     host: 'smtp.office365.com'
     port: 587
@@ -72,3 +74,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+

@@ -5,6 +5,11 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/psp
+  cloud:
+    compatibility-verifier:
+      enabled: false
+  application:
+    name: psp
 
 eureka:
   client:
