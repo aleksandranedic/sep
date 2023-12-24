@@ -166,7 +166,7 @@ public class AccountService {
 
     public void initUsers() {
         Lawyer lawyer = new Lawyer();
-        lawyer.setId(UUID.fromString("123"));
+        lawyer.setId(UUID.fromString("e3661c31-d1a4-47ab-94b6-1c6500dccf24"));
         lawyer.setEmail("admin@authservice.com");
         lawyer.setEmailVerified(true);
         lawyer.setFirstName("Super");

@@ -42,11 +42,11 @@ public class BankController {
     @GetMapping("/add")
     public void addUser() {
         User user = new User("lala", 10000, "1", "Agencija za izdavanje zakona");
-        user.setId("123");
         userRepo.save(user);
 
         CardInfo ci = new CardInfo("0000111122223333", "460", "Smilja", 11, 2024);
         User buyer = new User("lele", 5000, ci, "1", "Smilja Smiljic");
+        buyer.setId("e3661c31-d1a4-47ab-94b6-1c6500dccf24");
         userRepo.save(buyer);
     }
 }

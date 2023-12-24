@@ -76,16 +76,14 @@ public class BankService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Merchant not found"));
         }
         User merchant = optionalMerchant.get();
-//        if (isValidCardInfoAndAmount(cardInfo, buyer.getAmount(), transaction.getAmount())) {
-//            buyer.setAmount(buyer.getAmount() - transaction.getAmount());
-//            userRepo.save(buyer);
-//            addMerchantAmount(merchant, transaction.getAmount());
-//            transaction = generateAndSaveAcquirerInfo(transaction);
-//            return ResponseEntity.ok().body(new CardPaymentResponseDTO(response.getSuccessUrl(), transaction.getMerchantOrderId(), transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(), transaction.getPaymentId()));
-//        } else {
-//            return ResponseEntity.badRequest().body(Map.of("message", "Can't proceed payment. Check card info and amount on the account", "url", response.getFailedUrl()));
-//        }
-        return null;
+        if (isValidCardInfoAndAmount(cardInfo, buyer.getAmount(), transaction.getAmount())) {
+            buyer.setAmount(buyer.getAmount() - transaction.getAmount());
+            userRepo.save(buyer);
+            addMerchantAmount(merchant, transaction.getAmount());
+            transaction = generateAndSaveAcquirerInfo(transaction);
+            return ResponseEntity.ok().body(new CardPaymentResponseDTO("payment/success", transaction.getMerchantOrderId(), transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(), transaction.getPaymentId()));
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "Can't proceed payment. Check card info and amount on the account", "url", "payment/failed"));
     }
 
     public static QrCodePaymentData decodePaymentString(String paymentString) {
