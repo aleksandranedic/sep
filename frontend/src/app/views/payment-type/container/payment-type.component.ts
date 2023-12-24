@@ -1,9 +1,10 @@
-import {Component, Input} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, Inject, Input} from '@angular/core';
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {PaymentService} from "../../../services/payment.service";
 import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
 import { PaypalSubComponent } from '../dialogs/paypal-sub/paypal-sub.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-payment-type',
@@ -21,7 +22,7 @@ export class PaymentTypeContainer {
     "amount": 350
   };
 
-  constructor(private route: Router, public dialog: MatDialog, private paymentService: PaymentService) {
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private actRoute: ActivatedRoute, private route: Router, public dialog: MatDialog, private paymentService: PaymentService) {
   }
 
   goToPage(path: string) {
@@ -65,6 +66,7 @@ export class PaymentTypeContainer {
   paypal() {
     this.paymentService.proceedPayment("paypal", {amount: this.price}).subscribe({
       next: (value: any) => {
+        window.open(value.redirectURL, '_blank');
         console.log(value);
       },
       error: (err) => console.log(err)

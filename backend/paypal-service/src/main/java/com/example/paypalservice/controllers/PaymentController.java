@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -28,7 +29,9 @@ public class PaymentController {
     public ResponseEntity<Map<String,String>> createPayment(@RequestBody CreatePaymentDTO createPaymentDTO) {
         try {
             String response = paypalService.createPayment(createPaymentDTO);
-            return ResponseEntity.ok().body(Map.of("redirectURL", response));
+            Map<String, String> jsonResponse = new HashMap<>();
+            jsonResponse.put("redirectURL", response);
+            return ResponseEntity.ok().body(jsonResponse);
         } catch (RuntimeException | IOException exception) {
             return ResponseEntity.badRequest().body(Map.of("error", exception.getMessage()));
         }
@@ -44,12 +47,12 @@ public class PaymentController {
         }
     }
 
-    @PostMapping(value = "/confirm")
-    public ResponseEntity<String> successPay(@RequestBody PaymentDTO paymentDTO) {
+    @PostMapping(value = "/confirm/")
+    public ResponseEntity<Map<String, String>> successPay(@RequestBody PaymentDTO paymentDTO) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(paypalService.executePayment(paymentDTO));
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", paypalService.executePayment(paymentDTO)));
         } catch (RuntimeException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
+            return ResponseEntity.badRequest().body((Map.of("message", exception.getMessage())));
         }
     }
 

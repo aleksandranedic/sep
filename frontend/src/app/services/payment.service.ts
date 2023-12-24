@@ -28,6 +28,11 @@ export class PaymentService {
     return this.http.post<any>(url, req, AuthService.getHttpOptions());
   }
 
+  public confirmPaypalPayment(paymentId: string, payerId: string) {
+    const url = `${this.paymentUrl}/paypal-confirm`;
+    return this.http.post<any>(url, {paymentId, payerId}, AuthService.getHttpOptions());
+  }
+
   public getPlanId(payload: any): Observable<any> {
     const url = `${this.paymentUrl}/paypal-sub`;
     return this.http.post<any>(url, payload, AuthService.getHttpOptions());

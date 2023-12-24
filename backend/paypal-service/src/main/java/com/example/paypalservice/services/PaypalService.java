@@ -68,7 +68,7 @@ public class PaypalService {
 
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl(FRONTEND_URL + createPaymentDTO.getFailedUrl());
-        redirectUrls.setReturnUrl(FRONTEND_URL + createPaymentDTO.getSuccessUrl());
+        redirectUrls.setReturnUrl(FRONTEND_URL + "dashboard");
         payment.setRedirectUrls(redirectUrls);
         try {
             Payment createdPayment = payment.create(apiContext);
@@ -120,6 +120,7 @@ public class PaypalService {
                 throw new RuntimeException("Unsuccessful payment");
             }
         } catch (PayPalRESTException e) {
+            System.out.println(e);
             throw new RuntimeException("Unsuccessful payment");
         }
     }

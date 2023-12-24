@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, Inject} from '@angular/core';
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {PaymentTypeContainer} from "../../../payment-type/container/payment-type.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-store',
@@ -16,7 +18,36 @@ export class StoreComponent {
     {name: 'Internet Law Issuance', monthlyPrice: 60, yearlyPrice: 600, selected: false}
   ];
 
-  constructor(private router: Router, private dialog: MatDialog) {
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,  private paymentService: PaymentService, private actRoute: ActivatedRoute, private router: Router, private dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
+    this.actRoute.queryParams.subscribe((params) => {
+      console.log(params)
+      if (params['paymentId'] !== undefined) {
+        this.paypalListener(params);
+      }
+    })
+  }
+
+  private paypalListener(params: Params) {
+    const paymentId = params['paymentId'];
+    const payerId = params['PayerID'];
+    if (paymentId && payerId) {
+      const response = this.paymentService.confirmPaypalPayment(paymentId, payerId);
+        response.subscribe((result: any) => {
+          console.log(result)
+          if (result.message === 'Successful payment') {
+            this._snackBar.open('Successful payment', '', {
+              duration: 2000
+            });
+          } else {
+            this._snackBar.open('Unsuccessful payment', '', {
+              duration: 2000
+            });
+          }
+        });
+    }
   }
 
   pay(amount: number): void {
