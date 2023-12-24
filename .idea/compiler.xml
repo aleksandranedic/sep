@@ -10,18 +10,21 @@
         <module name="shared" />
         <module name="auth-service" />
         <module name="bank" />
+        <module name="discovery-server" />
         <module name="paypal-service" />
         <module name="payment-crypto-service" />
         <module name="payment-card-center" />
         <module name="api-gateway" />
         <module name="payment-service-provider" />
-        <module name="ServiceRegistrationAndDiscovery" />
+        <module name="discovery-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api-gateway" target="17" />
       <module name="auth-service" target="17" />
       <module name="bank" target="17" />
+      <module name="discovery-server" target="17" />
+      <module name="discovery-service" target="17" />
       <module name="payment-card-center" target="17" />
       <module name="payment-crypto-service" target="17" />
       <module name="payment-service-provider" target="17" />
@@ -36,6 +39,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="bank" options="-parameters" />
+      <module name="discovery-server" options="-parameters" />
       <module name="payment-card-center" options="-parameters" />
       <module name="payment-crypto-service" options="-parameters" />
       <module name="payment-service-provider" options="-parameters" />

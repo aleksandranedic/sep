@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/backend/discovery/ServiceRegistrationAndDiscovery.iml" filepath="$PROJECT_DIR$/backend/discovery/ServiceRegistrationAndDiscovery.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/backend/api-gateway/api-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/backend/auth-service/auth-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/bank/bank.iml" filepath="$PROJECT_DIR$/backend/bank/bank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/discovery-server/discovery-server.iml" filepath="$PROJECT_DIR$/backend/discovery-server/discovery-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/discovery-service.iml" filepath="$PROJECT_DIR$/backend/discovery-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/payment-card-center/payment-card-center.iml" filepath="$PROJECT_DIR$/backend/payment-card-center/payment-card-center.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/payment-crypto-service/payment-crypto-service.iml" filepath="$PROJECT_DIR$/backend/payment-crypto-service/payment-crypto-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/payment-service-provider/payment-service-provider.iml" filepath="$PROJECT_DIR$/backend/payment-service-provider/payment-service-provider.iml" />
