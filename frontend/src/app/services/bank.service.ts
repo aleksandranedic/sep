@@ -22,6 +22,11 @@ export class BankService {
     this.bankUrl = environment.bankUrl + '/api/bank';
   }
 
+  public saveCreditCardData(cardPaymentDTO: CardPaymentDTO): Observable<boolean> {
+    const url = `${this.bankUrl}/card/edit`;
+    return this.http.post<boolean>(url, cardPaymentDTO);
+  }
+
   public payWithCard(cardPaymentDTO: CardPaymentDTO): Observable<CardPaymentResponseDTO> {
     const url = `${this.bankUrl}/card/payment`;
     return this.http.post<CardPaymentResponseDTO>(url, cardPaymentDTO);

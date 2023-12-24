@@ -1,0 +1,55 @@
+<img src="../../../../assets/images/background-line.jpg" class="dashboard-background" alt="dashboard-background"/>
+
+<app-sidebar currentPage="card"></app-sidebar>
+<div style="margin-left: 90px; margin-right: 10px; margin-top: -80px">
+  <h1 style="font-weight: 500; margin-left: 10px; color: white">Edit card data</h1>
+
+  <mat-card style="padding: 0;">
+    <form [formGroup]="formGroup" style="margin: 10px">
+      <p style="margin-top: 20px">
+        <mat-form-field class="example-full-width" style="width: 70%; margin-right: 10px" appearance="outline">
+          <mat-label>Name on card</mat-label>
+          <input matInput formControlName="nameFormControl" [(ngModel)]="name"
+                 placeholder="Ex. Peter">
+          <mat-error *ngIf="formGroup.hasError('required', 'nameFormControl')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" style="width: 25%" appearance="outline">
+          <mat-label>Expiracy</mat-label>
+          <input matInput formControlName="expirationDateFormControl" [(ngModel)]="expirationDate"
+                 placeholder="Ex. 01/25">
+          <mat-error *ngIf="formGroup.hasError('required', 'expirationDateFormControl')">
+            Expiration date is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p style="margin-top: 10px">
+        <mat-form-field class="example-full-width" style="width: 70%; margin-right: 10px" appearance="outline">
+          <mat-label>Credit card number</mat-label>
+          <input matInput formControlName="cardNumberFormControl" [(ngModel)]="cardNumber"
+                 placeholder="Ex. 0000 1111 2222 3333">
+          <mat-error *ngIf="formGroup.hasError('required', 'cardNumberFormControl')">
+            Card number is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" style="width: 25%" appearance="outline">
+          <mat-label>CVV</mat-label>
+          <input matInput formControlName="cvvFormControl" [(ngModel)]="cvv"
+                 placeholder="Ex. 01/25">
+          <mat-error *ngIf="formGroup.hasError('required', 'cvvFormControl')">
+            CVV is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <button mat-raised-button type="submit" id="loginBtn" [disabled]="formGroup.invalid"
+              color="primary"
+              (click)="save()"
+              style="width: 50%;">Save
+      </button>
+    </form>
+  </mat-card>
+</div>

@@ -15,6 +15,7 @@ import {PaymentSuccessComponent} from "./views/payment-success/payment-success.c
 import {PaymentFailedComponent} from "./views/payment-failed/payment-failed.component";
 import {PaymentErrorComponent} from "./views/payment-error/payment-error.component";
 import {PaymentSubscriptionComponent} from "./views/payment-subscription/payment-subscription.component";
+import {EditCreditCardComponent} from "./views/edit-credit-card/edit-credit-card.component";
 
 const routes: Routes = [
   {path: '', component: HomepageContainerComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'payment/failed', component: PaymentFailedComponent},
   {path: 'payment/error', component: PaymentErrorComponent},
   {path: 'payment', component: PaymentSubscriptionComponent},
+  {path: 'card', component: EditCreditCardComponent},
   {path: '403', component: NotAuthorizedPageComponent},
   {path: '**', component: NotFoundPageComponent}
 ];

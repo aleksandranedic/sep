@@ -15,6 +15,12 @@
       <span class="tooltip">Subscriptions</span>
     </li>
     <li>
+      <a (click)="navigate('/card')" [ngClass]="{ 'currentPage': currentPage === 'card' }">
+        <mat-icon>credit_card</mat-icon>
+      </a>
+      <span class="tooltip">Credit card data</span>
+    </li>
+    <li>
       <a (click)="logout()">
         <mat-icon>logout</mat-icon>
       </a>

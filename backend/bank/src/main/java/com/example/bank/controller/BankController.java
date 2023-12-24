@@ -28,6 +28,11 @@ public class BankController {
         return bankService.payWithCard(cardPaymentDTO);
     }
 
+    @PostMapping("/card/edit")
+    public boolean editCardData(@RequestBody CardPaymentDTO cardPaymentDTO) {
+        return bankService.editCardData(cardPaymentDTO);
+    }
+
     @PostMapping("/qr/payment")
     public ResponseEntity<?> payWithCardQR(@RequestBody QRPaymentDTO qrCode) {
         return bankService.payWithQr(qrCode);

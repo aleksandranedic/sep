@@ -378,4 +378,29 @@ public class BankService {
         } while (!uniqueIdFound);
         return paymentId;
     }
+
+    public boolean editCardData(CardPaymentDTO cardPaymentDTO) {
+        LocalDateTime currentDate = LocalDateTime.now();
+        int currentYear = currentDate.getYear();
+        int currentMonth = currentDate.getMonthValue();
+        if (currentYear > 2000 + cardPaymentDTO.getExpiryYear())
+            return false;
+        if (currentYear == 2000 + cardPaymentDTO.getExpiryYear() && currentMonth >= cardPaymentDTO.getExpiryMonth())
+            return false;
+
+        CardInfo cardInfo = new CardInfo();
+        cardInfo.setCardHolderName("");
+        cardInfo.setExpiryMonth(cardPaymentDTO.getExpiryMonth());
+        cardInfo.setExpiryYear(cardPaymentDTO.getExpiryYear());
+        cardInfo.setPan(cardPaymentDTO.getPan());
+        cardInfo.setSecurityCode(cardPaymentDTO.getSecurityCode());
+
+        User user = new User();
+        user.setId(cardPaymentDTO.getPaymentId());
+        user.setAmount(1000.0);
+        user.setCardInfo(cardInfo);
+        user.setBankId("1");
+        userRepo.save(user);
+        return true;
+    }
 }
