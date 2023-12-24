@@ -68,6 +68,7 @@ export class LoginComponent {
         console.log(loginResponse)
         localStorage.setItem('userRole', loginResponse.role);
         localStorage.setItem('id', loginResponse.id);
+        localStorage.setItem('email', loginCredentials.email);
         this.router.navigate(['/dashboard']);
         this.loginFailed = false;
       }, error: () => {

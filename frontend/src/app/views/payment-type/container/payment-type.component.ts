@@ -55,9 +55,22 @@ export class PaymentTypeContainer {
   }
 
   crypto() {
-    this.paymentService.proceedPayment("crypto", this.req).subscribe({
-      next: (value: any) => {
-        console.log(value);
+    this.paymentService.proceedPayment("crypto", {amount: this.price, email: localStorage.getItem('email')}).subscribe({
+      next: (res: any) => {
+        this._snackBar.open(`Send amount to this address: ${res.address}`, '', {
+          duration: 10000
+        })
+        const timer = setInterval(() => {
+          this.paymentService.checkCryptoTransaction(res.transactionId).subscribe(res => {
+            console.log(res)
+            if (res.status === "SUCCESS") {
+              this._snackBar.open("Payment successuful", '', {
+                duration: 10000
+              })
+              clearInterval(timer);
+            }
+          })
+        }, 2000);
       },
       error: (err) => console.log(err)
     })
@@ -77,8 +90,6 @@ export class PaymentTypeContainer {
     const payload = this.generateSubPayload();
     const observable = this.paymentService.getPlanId(payload);
     observable.subscribe(response => {
-      console.log(response)
-      console.log(response.planId)
       let dialogRef = this.dialog.open(PaypalSubComponent, {
         width: '400px'
       });

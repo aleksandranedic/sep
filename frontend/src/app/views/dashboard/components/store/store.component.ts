@@ -47,6 +47,9 @@ export class StoreComponent {
             });
           }
         });
+        setTimeout(() => {
+          window.location.href = 'http://localhost:4200/dashboard';
+        }, 6000);
     }
   }
 

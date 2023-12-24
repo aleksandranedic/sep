@@ -37,4 +37,9 @@ export class PaymentService {
     const url = `${this.paymentUrl}/paypal-sub`;
     return this.http.post<any>(url, payload, AuthService.getHttpOptions());
   }
+
+  public checkCryptoTransaction(transactionId: string) {
+    const url = `${this.paymentUrl}/crypto-confirm`;
+    return this.http.post<any>(url, {transactionId}, AuthService.getHttpOptions());
+  }
 }
