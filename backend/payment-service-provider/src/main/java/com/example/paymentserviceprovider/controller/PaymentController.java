@@ -36,8 +36,9 @@ public class PaymentController {
         System.out.println(services);
     }
 
-    @PostMapping("/{method}")
-    public ResponseEntity<Map<String, Object>> proceedPayment(@PathVariable String method, @RequestBody Map<String, Object> req) {
-        return paymentService.proceedPayment(method, req);
+    @PostMapping("/proceed")
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req) {
+        System.out.println(req);
+        return paymentService.proceedPayment(req);
     }
 }

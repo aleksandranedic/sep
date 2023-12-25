@@ -12,4 +12,5 @@ import java.util.UUID;
 public class TransactionResponseDTO {
     String address;
     UUID transactionId;
+    double bitcoins;
 }

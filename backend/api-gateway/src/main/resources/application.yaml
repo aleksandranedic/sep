@@ -17,4 +17,16 @@ spring:
           predicates:
             - Path=/crypto/api/payment/**
           filters:
-            - RewritePath=/crypto/(?<remaining>.*), /$\
+            - RewritePath=/crypto/(?<remaining>.*), /${remaining}
+        - id: PAYPAL-SERVICE
+          uri: http://localhost:8087
+          predicates:
+            - Path=/paypal/api/payment/**
+          filters:
+            - RewritePath=/paypal/(?<remaining>.*), /${remaining}
+        - id: BANK-SERVICE
+          uri: http://localhost:8000
+          predicates:
+            - Path=/mbank/api/bank/pay/**
+          filters:
+            - RewritePath=/mbank/(?<remaining>.*), /${remaining}

@@ -30,7 +30,7 @@ export class PaymentTypeContainer {
   }
 
   creditCard() {
-    this.paymentService.proceedPayment("card", this.req).subscribe({
+    this.paymentService.proceedPayment("mbank", this.req, "api/bank/pay/card").subscribe({
       next: (value: any) => {
         const url = this.route.serializeUrl(
           this.route.createUrlTree([value["paymentUrl"].slice(22) + '/' + value["paymentId"]])
@@ -57,8 +57,8 @@ export class PaymentTypeContainer {
   crypto() {
     this.paymentService.proceedPayment("crypto", {amount: this.price, email: localStorage.getItem('email')}).subscribe({
       next: (res: any) => {
-        this._snackBar.open(`Send amount to this address: ${res.address}`, '', {
-          duration: 10000
+        this._snackBar.open(`Send ${res.bitcoins} bitcoins to this address: ${res.address}`, '', {
+          duration: 15000
         })
         const timer = setInterval(() => {
           this.paymentService.checkCryptoTransaction(res.transactionId).subscribe(res => {

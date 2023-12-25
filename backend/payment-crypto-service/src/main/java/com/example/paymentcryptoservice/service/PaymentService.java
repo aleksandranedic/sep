@@ -48,7 +48,8 @@ public class PaymentService {
         // You might want to return the mnemonic code securely
         // For demonstration purposes, I'm returning it as a string
         System.out.println(String.join(" ", mnemonicCode));
-        return new TransactionResponseDTO(newAddress.toString(), transaction.getId());
+        double bitcoins = amount * 0.00003;
+        return new TransactionResponseDTO(newAddress.toString(), transaction.getId(), bitcoins);
     }
 
     public TransactionStatus check(UUID id) {

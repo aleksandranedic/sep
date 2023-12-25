@@ -5,47 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="446f1940-88bd-45c0-bc89-53930fc84c19" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/ApiGatewayApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/ApplicationConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/AuthServiceConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/ClientConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/CorsConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/CorsRoutes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/PayPalConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/configuration/PaymentServiceProviderConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/controller/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/controller/PaymentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/AuthClientProxy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/ClientProxy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/OrderProcessingClientProxy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/OrderProcessingUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/RabbitMQSender.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/RetrofitFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/service/SearchOrdersClientProxy.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/test/java/com/example/apigateway/ApiGatewayApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/PaymentCryptoServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/PaymentCryptoServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/configuration/WebConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/configuration/WebConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/controllers/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/controllers/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/dto/PaymentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/test/java/com/example/paymentcryptoservice/PaymentCryptoServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/test/java/com/example/paymentcryptoservice/PaymentCryptoServiceApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/payment.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/services/payment.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/views/dashboard/components/store/store.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/views/dashboard/components/store/store.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/views/homepage/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/views/homepage/components/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/views/payment-type/container/payment-type.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/views/payment-type/container/payment-type.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bank/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bank/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/dto/TransactionResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/dto/TransactionResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-crypto-service/src/main/java/com/example/paymentcryptoservice/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service-provider/src/main/java/com/example/paymentserviceprovider/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service-provider/src/main/java/com/example/paymentserviceprovider/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service-provider/src/main/java/com/example/paymentserviceprovider/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service-provider/src/main/java/com/example/paymentserviceprovider/service/PaymentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,34 +50,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;payments&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Glusac/Desktop/New folder/Sandra/sep/backend/auth-service&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;adb2bceffd9c9554c205fc841af3c37c&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "payments",
+    "last_opened_file_path": "C:/Users/Glusac/Desktop/New folder/Sandra/sep/backend/api-gateway",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.sync",
+    "spring.configuration.checksum": "adb2bceffd9c9554c205fc841af3c37c",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Glusac\Desktop\New folder\Sandra\sep\backend" />
@@ -154,6 +121,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PaymentCardCenterApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="payment-card-center" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.paymentcardcenter.PaymentCardCenterApplication" />
@@ -191,6 +165,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.WalletManager" />
+      <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.BankApplication" />
       <item itemvalue="Spring Boot.PaymentCardCenterApplication" />
@@ -231,6 +206,7 @@
       <workItem from="1703355893544" duration="16014000" />
       <workItem from="1703416287809" duration="1155000" />
       <workItem from="1703420983517" duration="9313000" />
+      <workItem from="1703525884587" duration="7258000" />
     </task>
     <servers />
   </component>

@@ -23,23 +23,23 @@ export class PaymentService {
     return this.http.post<void>(this.paymentUrl, services, AuthService.getHttpOptions());
   }
 
-  public proceedPayment(method: string, req: any): Observable<any> {
-    const url = `${this.paymentUrl}/${method}`;
-    return this.http.post<any>(url, req, AuthService.getHttpOptions());
+  public proceedPayment(method: string, req: any, path = "api/payment"): Observable<any> {
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {...req, path:`/${method}/${path}`}, AuthService.getHttpOptions());
   }
 
   public confirmPaypalPayment(paymentId: string, payerId: string) {
-    const url = `${this.paymentUrl}/paypal-confirm`;
-    return this.http.post<any>(url, {paymentId, payerId}, AuthService.getHttpOptions());
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {paymentId, payerId,  path:`/paypal/api/payment/confirm}`}, AuthService.getHttpOptions());
   }
 
   public getPlanId(payload: any): Observable<any> {
-    const url = `${this.paymentUrl}/paypal-sub`;
-    return this.http.post<any>(url, payload, AuthService.getHttpOptions());
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {...payload, path: '/paypal/api/payment/subscribe'}, AuthService.getHttpOptions());
   }
 
   public checkCryptoTransaction(transactionId: string) {
-    const url = `${this.paymentUrl}/crypto-confirm`;
-    return this.http.post<any>(url, {transactionId}, AuthService.getHttpOptions());
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {transactionId, path: '/crypto/api/payment/status'}, AuthService.getHttpOptions());
   }
 }

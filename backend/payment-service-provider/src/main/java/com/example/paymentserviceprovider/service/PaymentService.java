@@ -29,8 +29,10 @@ public class PaymentService {
     @Autowired
     TransactionRepository transactionRepo;
 
-    public ResponseEntity<Map<String, Object>> proceedPayment(@PathVariable String method, @RequestBody Map<String, Object> req) {
-        String url = PaymentServiceRegistry.getDescriptor(method).url();
+    public static final String API_URL = "http://localhost:8081";
+
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req) {
+        String url = API_URL + req.get("path") + "/";//PaymentServiceRegistry.getDescriptor(method).url();
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
 
 // Set the desired timeout values (in seconds)
