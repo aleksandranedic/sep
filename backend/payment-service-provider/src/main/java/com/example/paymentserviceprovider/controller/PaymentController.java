@@ -16,8 +16,29 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
-    @PostMapping("/{method}")
-    public ResponseEntity<Map<String, Object>> proceedPayment(@PathVariable String method, @RequestBody Map<String, Object> req) {
-        return paymentService.proceedPayment(method, req);
+    @PostMapping("/subscribe")
+    public ResponseEntity<String> subscribeToMethod(@RequestBody String method) {
+        return ResponseEntity.ok(method);
+    }
+
+    @PostMapping("/remove")
+    public ResponseEntity<String> subscribeToRemove(String method) {
+        return ResponseEntity.ok(method);
+    }
+
+    @GetMapping
+    public List<String> getSubscriptions() {
+        return List.of();
+    }
+
+    @PostMapping
+    public void override(@RequestBody List<String> services) {
+        System.out.println(services);
+    }
+
+    @PostMapping("/proceed")
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req) {
+        System.out.println(req);
+        return paymentService.proceedPayment(req);
     }
 }

@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PaymentDTO {
-    private String email;
-    private Double amount;
+public class TransactionResponseDTO {
+    String address;
+    UUID transactionId;
+    double bitcoins;
 }

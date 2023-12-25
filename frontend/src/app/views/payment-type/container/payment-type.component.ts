@@ -1,8 +1,10 @@
-import {Component, Input} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, Inject, Input} from '@angular/core';
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {PaymentService} from "../../../services/payment.service";
 import {QrCodeComponent} from "../dialogs/qr-code/qr-code.component";
+import { PaypalSubComponent } from '../dialogs/paypal-sub/paypal-sub.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {UserService} from "../../../services/user.service";
 
 @Component({
@@ -13,16 +15,17 @@ import {UserService} from "../../../services/user.service";
 export class PaymentTypeContainer {
 
   @Input() price = 0;
+  @Input() chosenServices: string[] = []
 
   services: string[] = [];
-
   req = {
     "merchantId": "655bc6821c76400a7ecc8722",
     "merchantPassword": "lala",
     "amount": 350
   };
 
-  constructor(private route: Router, public dialog: MatDialog, private paymentService: PaymentService, private userService: UserService) {
+  
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private actRoute: ActivatedRoute, private route: Router, public dialog: MatDialog, private paymentService: PaymentService, private userService: UserService) {
     userService.getSubscriptions().subscribe(services => this.services = services);
   }
 
@@ -31,7 +34,7 @@ export class PaymentTypeContainer {
   }
 
   creditCard() {
-    this.paymentService.proceedPayment("card", this.req).subscribe({
+    this.paymentService.proceedPayment("mbank", this.req, "api/bank/pay/card").subscribe({
       next: (value: any) => {
         const url = this.route.serializeUrl(
           this.route.createUrlTree([value["paymentUrl"].slice(22) + '/' + value["paymentId"]])
@@ -56,20 +59,58 @@ export class PaymentTypeContainer {
   }
 
   crypto() {
-    this.paymentService.proceedPayment("crypto", this.req).subscribe({
-      next: (value: any) => {
-        console.log(value);
+    this.paymentService.proceedPayment("crypto", {amount: this.price, email: localStorage.getItem('email')}).subscribe({
+      next: (res: any) => {
+        this._snackBar.open(`Send ${res.bitcoins} bitcoins to this address: ${res.address}`, '', {
+          duration: 15000
+        })
+        const timer = setInterval(() => {
+          this.paymentService.checkCryptoTransaction(res.transactionId).subscribe(res => {
+            console.log(res)
+            if (res.status === "SUCCESS") {
+              this._snackBar.open("Payment successuful", '', {
+                duration: 10000
+              })
+              clearInterval(timer);
+            }
+          })
+        }, 2000);
       },
       error: (err) => console.log(err)
     })
   }
 
   paypal() {
-    this.paymentService.proceedPayment("paypal", this.req).subscribe({
+    this.paymentService.proceedPayment("paypal", {amount: this.price}).subscribe({
       next: (value: any) => {
+        window.open(value.redirectURL, '_blank');
         console.log(value);
       },
       error: (err) => console.log(err)
     })
+  }
+
+  paypalSubscribe() {
+    const payload = this.generateSubPayload();
+    const observable = this.paymentService.getPlanId(payload);
+    observable.subscribe(response => {
+      let dialogRef = this.dialog.open(PaypalSubComponent, {
+        width: '400px'
+      });
+      dialogRef.componentInstance.services = this.chosenServices;
+      dialogRef.componentInstance.amount = this.price;
+      dialogRef.componentInstance.planId = response.planId;
+    })
+  }
+
+  generateSubPayload() {
+    return {
+       internet: this.chosenServices.filter(name => name.toLowerCase().includes("internet")).length > 0,
+       digital: this.chosenServices.filter(name => name.toLowerCase().includes("electronic ")).length > 0,
+       printed: this.chosenServices.filter(name => name.toLowerCase().includes("printed")).length > 0,
+       codification: this.chosenServices.filter(name => name.toLowerCase().includes("codification")).length > 0,
+       monthly: this.price < 200,
+       amount: this.price
+    }
   }
 }

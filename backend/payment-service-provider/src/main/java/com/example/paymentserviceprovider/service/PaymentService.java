@@ -4,6 +4,7 @@ import com.example.paymentserviceprovider.model.paymentRegistry.PaymentServiceRe
 import com.example.paymentserviceprovider.model.paymentRegistry.RetrofitPayment;
 import com.example.paymentserviceprovider.model.paymentRegistry.Transaction;
 import com.example.paymentserviceprovider.repository.TransactionRepository;
+import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class PaymentService {
@@ -27,12 +29,23 @@ public class PaymentService {
     @Autowired
     TransactionRepository transactionRepo;
 
-    public ResponseEntity<Map<String, Object>> proceedPayment(@PathVariable String method, @RequestBody Map<String, Object> req) {
-        String url = PaymentServiceRegistry.getDescriptor(method).url();
+    public static final String API_URL = "http://localhost:8081";
 
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req) {
+        String url = API_URL + req.get("path") + "/";//PaymentServiceRegistry.getDescriptor(method).url();
+        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+
+// Set the desired timeout values (in seconds)
+        httpClientBuilder.connectTimeout(80, TimeUnit.SECONDS); // Set connection timeout
+        httpClientBuilder.readTimeout(80, TimeUnit.SECONDS); // Set read timeout
+        httpClientBuilder.writeTimeout(80, TimeUnit.SECONDS); // Set write timeout
+
+// Build OkHttpClient
+        OkHttpClient httpClient = httpClientBuilder.build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
                 .build();
 
         RetrofitPayment retrofitPayment = retrofit.create(RetrofitPayment.class);
@@ -46,8 +59,14 @@ public class PaymentService {
         Call<Map<String, Object>> call = retrofitPayment.forwardPayment(url, req);
 
         try {
+            System.out.println("Before execute");
             Response<Map<String, Object>> response = call.execute();
+            System.out.println("After execute");
             if (response.isSuccessful()) {
+                System.out.println(url);
+                System.out.println("sucess");
+                System.out.println(response);
+                System.out.println(response.body());
                 return ResponseEntity.ok(response.body());
             } else {
                 // Handle unsuccessful response

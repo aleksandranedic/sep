@@ -21,7 +21,10 @@
     <div class="col-md-6 text-center tile">
       <img src="../../../../assets/images/paypal.png" alt="paypal">
       <h4><b>PayPal</b></h4>
-      <button [disabled]="services.indexOf('PAYPAL') === -1" color="primary" (click)="paypal()" mat-raised-button>Choose payment type</button>
+      <div style="display: flex; gap: 5px;">
+        <button [disabled]="services.indexOf('PAYPAL') === -1" color="primary" style="width: 50%;" (click)="paypal()" mat-raised-button>One-time</button>
+        <button [disabled]="services.indexOf('PAYPAL') === -1" color="primary" style="width: 45%;" (click)="paypalSubscribe()" mat-raised-button>Subscription</button>
+      </div>
     </div>
   </div>
 </mat-dialog-content>
