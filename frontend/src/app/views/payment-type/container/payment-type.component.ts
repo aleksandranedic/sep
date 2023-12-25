@@ -24,7 +24,7 @@ export class PaymentTypeContainer {
     "amount": 350
   };
 
-  
+
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private actRoute: ActivatedRoute, private route: Router, public dialog: MatDialog, private paymentService: PaymentService, private userService: UserService) {
     userService.getSubscriptions().subscribe(services => this.services = services);
   }
@@ -49,13 +49,14 @@ export class PaymentTypeContainer {
     let dialogRef = this.dialog.open(QrCodeComponent, {
       width: '400px'
     });
-    dialogRef.componentInstance.receiverAccount = '105000000000000029';
+    dialogRef.componentInstance.receiverAccount = '655bc6821c76400a7ecc8722';
     dialogRef.componentInstance.receiverName = 'pera';
     dialogRef.componentInstance.currency = 'RSD';
     dialogRef.componentInstance.amount = this.price;
     dialogRef.componentInstance.payerCity = 'Beograd';
     dialogRef.componentInstance.paymentCode = '221';
     dialogRef.componentInstance.paymentPurpose = 'subscription';
+    dialogRef.componentInstance.dialogRef = dialogRef;
   }
 
   crypto() {

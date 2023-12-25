@@ -4,6 +4,9 @@ import {BrowserQRCodeReader} from '@zxing/browser';
 import {CardPaymentResponseDTO} from "../../../../model/BankDtos";
 import {Router} from "@angular/router";
 import {BankService} from "../../../../services/bank.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {DialogRef} from "@angular/cdk/dialog";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-qr-code',
@@ -18,8 +21,9 @@ export class QrCodeComponent implements OnInit {
   @Input() payerCity: string = '';
   @Input() paymentCode: string = '';
   @Input() paymentPurpose: string = '';
+  @Input() dialogRef: MatDialogRef<QrCodeComponent> | undefined;
 
-  constructor(private route: Router, private bankService: BankService) {
+  constructor(private route: Router, private bankService: BankService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -63,6 +67,7 @@ export class QrCodeComponent implements OnInit {
   pay(qrCode: string) {
     this.bankService.payWithQR(qrCode).subscribe({
       next: (value: CardPaymentResponseDTO) => {
+        this.dialogRef?.close();
         this.route.navigate([value.redirectionUrl]);
       },
       error: (err) => {
@@ -70,5 +75,12 @@ export class QrCodeComponent implements OnInit {
         this.route.navigate([err.redirectionUrl]);
       }
     });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 3000,
+      panelClass: ['snack-bar']
+    })
   }
 }

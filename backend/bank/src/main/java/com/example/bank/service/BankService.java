@@ -71,7 +71,7 @@ public class BankService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Issuer not found"));
         }
         User buyer = optionalBuyer.get();
-        Optional<User> optionalMerchant = userRepo.findById(transaction.getUserId());
+        Optional<User> optionalMerchant = userRepo.findById(data.getReceiverAccount());
         if (optionalMerchant.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Merchant not found"));
         }
@@ -304,8 +304,8 @@ public class BankService {
         LocalDateTime currentDate = LocalDateTime.now();
         int currentYear = currentDate.getYear();
         int currentMonth = currentDate.getMonthValue();
-        if (currentYear > cardInfo.getExpiryYear()) return false;
-        return currentYear != cardInfo.getExpiryYear() || currentMonth <= cardInfo.getExpiryMonth();
+        if (currentYear > 2000 + cardInfo.getExpiryYear()) return false;
+        return currentYear != 2000 + cardInfo.getExpiryYear() || currentMonth <= cardInfo.getExpiryMonth();
     }
 
     private boolean isSameBank(CardPaymentDTO paymentDTO) {
