@@ -1,20 +1,18 @@
 package com.example.bank.configuration;
 
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
-@Component
 public class EncryptionUtil {
-    private final String key = "1234567812345678";
-    private final String initVector = "1234567812345678";
-    private final String algo = "AES/CBC/PKCS5PADDING";
+    private static final String key = "1234567812345678";
+    private static final String initVector = "1234567812345678";
+    private static final String algo = "AES/CBC/PKCS5PADDING";
 
-    public String encrypt(String value) {
+    public static String encrypt(String value) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
@@ -30,7 +28,7 @@ public class EncryptionUtil {
         return null;
     }
 
-    public String decrypt(String encrypted) {
+    public static String decrypt(String encrypted) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");

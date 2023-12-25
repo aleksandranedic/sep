@@ -47,9 +47,16 @@ public class BankController {
     @GetMapping("/add")
     public void addUser() {
         User user = new User("lala", 10000, "1", "Agencija za izdavanje zakona");
+        user.setId("658a0841682d9a1e141599f8");
         userRepo.save(user);
 
-        CardInfo ci = new CardInfo("0000111122223333", "460", "Smilja", 11, 2024);
+        CardInfo ci = new CardInfo();
+        ci.setSecurityCode("0000111122223333");
+        ci.setPan("460");
+        ci.setCardHolderName("Smilja");
+        ci.setExpiryYear(24);
+        ci.setExpiryMonth(11);
+
         User buyer = new User("lele", 5000, ci, "1", "Smilja Smiljic");
         buyer.setId("e3661c31-d1a4-47ab-94b6-1c6500dccf24");
         userRepo.save(buyer);

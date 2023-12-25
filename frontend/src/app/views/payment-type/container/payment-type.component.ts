@@ -49,7 +49,7 @@ export class PaymentTypeContainer {
     let dialogRef = this.dialog.open(QrCodeComponent, {
       width: '400px'
     });
-    dialogRef.componentInstance.receiverAccount = '655bc6821c76400a7ecc8722';
+    dialogRef.componentInstance.receiverAccount = '658a0841682d9a1e141599f8';
     dialogRef.componentInstance.receiverName = 'pera';
     dialogRef.componentInstance.currency = 'RSD';
     dialogRef.componentInstance.amount = this.price;

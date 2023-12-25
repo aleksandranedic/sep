@@ -242,7 +242,13 @@ public class BankService {
     }
 
     private CardInfo getCardInfoFromCardPaymentDTO(CardPaymentDTO cardPaymentDTO) {
-        return new CardInfo(cardPaymentDTO.getPan(), cardPaymentDTO.getSecurityCode(), cardPaymentDTO.getCardHolderName(), cardPaymentDTO.getExpiryMonth(), cardPaymentDTO.getExpiryYear());
+        CardInfo cardInfo = new CardInfo();
+        cardInfo.setCardHolderName(cardPaymentDTO.getCardHolderName());
+        cardInfo.setSecurityCode(cardPaymentDTO.getSecurityCode());
+        cardInfo.setPan(cardPaymentDTO.getPan());
+        cardInfo.setExpiryMonth(cardPaymentDTO.getExpiryMonth());
+        cardInfo.setExpiryYear(cardPaymentDTO.getExpiryYear());
+        return cardInfo;
     }
 
     private Transaction generateAndSaveAcquirerInfo(Transaction transaction) {
@@ -389,18 +395,24 @@ public class BankService {
             return false;
 
         CardInfo cardInfo = new CardInfo();
-        cardInfo.setCardHolderName("");
+        cardInfo.setCardHolderName(cardPaymentDTO.getCardHolderName());
         cardInfo.setExpiryMonth(cardPaymentDTO.getExpiryMonth());
         cardInfo.setExpiryYear(cardPaymentDTO.getExpiryYear());
         cardInfo.setPan(cardPaymentDTO.getPan());
         cardInfo.setSecurityCode(cardPaymentDTO.getSecurityCode());
 
-        User user = new User();
-        user.setId(cardPaymentDTO.getPaymentId());
-        user.setAmount(1000.0);
-        user.setCardInfo(cardInfo);
-        user.setBankId("1");
-        userRepo.save(user);
+        Optional<User> optionalUser = userRepo.findById(cardPaymentDTO.getPaymentId());
+        if (optionalUser.isEmpty()) {
+            User user = new User();
+            user.setBankId("1");
+            user.setCardInfo(cardInfo);
+            user.setAmount(0.0);
+            user.setName("User name");
+            userRepo.save(user);
+            return true;
+        }
+        optionalUser.get().setCardInfo(cardInfo);
+        userRepo.save(optionalUser.get());
         return true;
     }
 }

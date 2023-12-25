@@ -1,23 +1,41 @@
 package com.example.bank.model;
 
-import com.example.bank.configuration.Encrypt;
-import jakarta.persistence.Convert;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.bank.configuration.EncryptionUtil;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CardInfo {
-    @Convert(converter = Encrypt.class)
     String pan;
-    @Convert(converter = Encrypt.class)
     String securityCode;
-    @Convert(converter = Encrypt.class)
     String cardHolderName;
-    @Convert(converter = Encrypt.class)
+    @Getter
+    @Setter
     int expiryMonth;
-    @Convert(converter = Encrypt.class)
+    @Getter
+    @Setter
     int expiryYear;
+
+    public String getPan() {
+        return EncryptionUtil.decrypt(pan);
+    }
+
+    public void setPan(String pan) {
+        this.pan = EncryptionUtil.encrypt(pan);
+    }
+
+    public String getSecurityCode() {
+        return EncryptionUtil.decrypt(securityCode);
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = EncryptionUtil.encrypt(securityCode);
+    }
+
+    public String getCardHolderName() {
+        return EncryptionUtil.decrypt(cardHolderName);
+    }
+
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = EncryptionUtil.encrypt(cardHolderName);
+    }
 }

@@ -1,7 +1,5 @@
 package com.example.bank.model;
 
-import com.example.bank.configuration.Encrypt;
-import jakarta.persistence.Convert;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     String id;
-    @Convert(converter = Encrypt.class)
     String password;
     double amount;
     CardInfo cardInfo;
