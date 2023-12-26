@@ -35,6 +35,7 @@ public class PaymentService {
         String url = API_URL + req.get("path") + "/";//PaymentServiceRegistry.getDescriptor(method).url();
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
 
+        System.out.println(url);
 // Set the desired timeout values (in seconds)
         httpClientBuilder.connectTimeout(80, TimeUnit.SECONDS); // Set connection timeout
         httpClientBuilder.readTimeout(80, TimeUnit.SECONDS); // Set read timeout

@@ -18,9 +18,15 @@ public class BankController {
     @Autowired
     UserRepo userRepo;
 
-    @PostMapping("/pay/{method}/")
-    public ResponseEntity<?> pay(@PathVariable String method, @RequestBody PSPPaymentDTO pspPaymentDTO) {
-        return bankService.createFullPayment(method, pspPaymentDTO);
+    @PostMapping("/pay/card/")
+    public ResponseEntity<?> pay( @RequestBody PSPPaymentDTO pspPaymentDTO) {
+        System.out.println("ALOOOO USPEO SAM BANK CONTROLLER");
+        return bankService.createFullPayment("card", pspPaymentDTO);
+    }
+
+    @PostMapping("/pay/qr/")
+    public ResponseEntity<?> payQR( @RequestBody PSPPaymentDTO pspPaymentDTO) {
+        return bankService.createFullPayment("qr", pspPaymentDTO);
     }
 
     @PostMapping("/card/payment")
