@@ -57,8 +57,8 @@ public class BankController {
         userRepo.save(user);
 
         CardInfo ci = new CardInfo();
-        ci.setSecurityCode("0000111122223333");
-        ci.setPan("460");
+        ci.setSecurityCode("460");
+        ci.setPan("0000111122223333");
         ci.setCardHolderName("Smilja");
         ci.setExpiryYear(24);
         ci.setExpiryMonth(11);

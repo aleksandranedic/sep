@@ -61,11 +61,19 @@ public class BankService {
         Transaction transaction = new Transaction();
         transaction.setAmount(data.getAmount());
         User user = userRepo.findById(qrCode.getUserId()).get();
-        CardInfo cardInfo = user.getCardInfo();
+
+        CardInfo cardInfo = new CardInfo();
+        cardInfo.setExpiryYear(user.getCardInfo().getExpiryYear());
+        cardInfo.setExpiryMonth(user.getCardInfo().getExpiryMonth());
+        cardInfo.setPan(user.getCardInfo().getPan());
+        cardInfo.setCardHolderName(user.getCardInfo().getCardHolderName());
+        cardInfo.setSecurityCode(user.getCardInfo().getSecurityCode());
+
         transaction.setBankId(user.getBankId());
         transaction.setIssuerCardInfo(cardInfo);
         transaction.setUserId(user.getId());
         transactionRepo.save(transaction);
+
         Optional<User> optionalBuyer = userRepo.findByCardInfo(cardInfo);
         if (optionalBuyer.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Issuer not found"));
@@ -111,7 +119,14 @@ public class BankService {
     }
 
     public ResponseEntity<?> issuerPay(PCCPayloadDTO pccPayloadDTO) {
-        Optional<User> optionalBuyer = userRepo.findByCardInfo(pccPayloadDTO.getCardInfo());
+        CardInfo cardInfo = new CardInfo();
+        cardInfo.setExpiryYear(pccPayloadDTO.getCardInfo().getExpiryYear());
+        cardInfo.setExpiryMonth(pccPayloadDTO.getCardInfo().getExpiryMonth());
+        cardInfo.setPan(pccPayloadDTO.getCardInfo().getPan());
+        cardInfo.setCardHolderName(pccPayloadDTO.getCardInfo().getCardHolderName());
+        cardInfo.setSecurityCode(pccPayloadDTO.getCardInfo().getSecurityCode());
+
+        Optional<User> optionalBuyer = userRepo.findByCardInfo(cardInfo);
         if (optionalBuyer.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Issuer not found"));
         }

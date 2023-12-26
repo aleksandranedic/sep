@@ -19,7 +19,7 @@ export class PaymentTypeContainer {
 
   services: string[] = [];
   req = {
-    "merchantId": "655bc6821c76400a7ecc8722",
+    "merchantId": "658a0841682d9a1e141599f8",
     "merchantPassword": "lala",
     "amount": 350
   };
