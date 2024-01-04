@@ -1,5 +1,6 @@
 package com.example.paymentserviceprovider.controller;
 
+import com.example.paymentserviceprovider.dto.UPPPayload;
 import com.example.paymentserviceprovider.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,6 +16,13 @@ public class PaymentController {
 
     @Autowired
     PaymentService paymentService;
+
+    @PostMapping("/refund")
+    public ResponseEntity<Map<String,String>> refund(@RequestBody UPPPayload payload) {
+        System.out.println(payload);
+        return ResponseEntity.ok(Map.of("message", "Refunded successfully"));
+    }
+
 
     @PostMapping("/subscribe")
     public ResponseEntity<String> subscribeToMethod(@RequestBody String method) {
