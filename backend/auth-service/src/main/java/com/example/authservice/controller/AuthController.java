@@ -76,6 +76,12 @@ public class AuthController {
         return ResponseEntity.ok("ok");
     }
 
+    @GetMapping("/admin-privileges")
+    @PreAuthorize("hasAuthority('ADMINP')")
+    public ResponseEntity<String> hasAdminPrivilege() {
+        return ResponseEntity.ok("ok");
+    }
+
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> hasUserRole() {
