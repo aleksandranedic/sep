@@ -1,5 +1,6 @@
 package com.example.paymentcryptoservice.service;
 import com.example.paymentcryptoservice.dto.TransactionResponseDTO;
+import com.example.paymentcryptoservice.logger.Logger;
 import com.example.paymentcryptoservice.model.Transaction;
 import com.example.paymentcryptoservice.model.TransactionStatus;
 import com.example.paymentcryptoservice.repository.TransactionRepository;
@@ -26,8 +27,11 @@ public class PaymentService {
 
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private Logger logger;
 
     public TransactionResponseDTO generateAddress(String email, Double amount) throws IOException {
+        logger.info("Generating address", new Date().toString(), "PaymentCryptoService", email);
         Transaction transaction = new Transaction();
         transaction.setId(UUID.randomUUID());
         transaction.setEmail(email);
@@ -38,11 +42,14 @@ public class PaymentService {
         Address newAddress = wallet.freshReceiveAddress();
         transaction.setTargetAddress(newAddress.toString());
         transactionRepository.save(transaction);
+        logger.info("Address generated", new Date().toString(), "PaymentCryptoService", email);
         System.out.println(new File(".").getAbsolutePath());
         wallet.saveToFile(new File("./wallets/" + transaction.getId().toString() + ".wallet"));
+        logger.info("Wallet saved", new Date().toString(), "PaymentCryptoService", email);
         DeterministicSeed seed = wallet.getKeyChainSeed();
         List<String> mnemonicCode = seed.getMnemonicCode();
         if (mnemonicCode == null) {
+            logger.warn("Mnemonic code not available", new Date().toString(), "PaymentCryptoService", email);
             throw new IllegalStateException("Mnemonic code not available");
         }
         // You might want to return the mnemonic code securely
@@ -53,6 +60,7 @@ public class PaymentService {
     }
 
     public TransactionStatus check(UUID id) {
+        logger.info("Checking transaction", new Date().toString(), "PaymentCryptoService", id);
         Optional<Transaction> optTransaction = transactionRepository.findById(id);
 //        Transaction transaction = new Transaction();
 //        String address = "tb1qlqte3xx6zz3yxpnl6ruw27ckea3l0w0hvl982r";
@@ -72,6 +80,7 @@ public class PaymentService {
             int responseCode = conn.getResponseCode();
 
             if (responseCode != 200) {
+                logger.error("Error while checking transaction", new Date().toString(), "PaymentCryptoService", id);
                 throw new RuntimeException("HttpResponseCode: " + responseCode);
             } else {
                 StringBuilder inline = new StringBuilder();
@@ -93,14 +102,17 @@ public class PaymentService {
                 Double usd = btcToUsdConverter.convertBtcToUsd(btc);
                 System.out.println("usdddd" + usd.toString());
                 if (usd + 5 < transaction.getAmount()) {
+                    logger.error("Transaction failed", new Date().toString(), "PaymentCryptoService", id);
                     transaction.setTransactionStatus(TransactionStatus.FAIL);
                     return TransactionStatus.FAIL;
                 }
+                logger.info("Transaction success", new Date().toString(), "PaymentCryptoService", id);
                 transaction.setTransactionStatus(TransactionStatus.SUCCESS);
                 return TransactionStatus.SUCCESS;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("Error while checking transaction", new Date().toString(), "PaymentCryptoService", null);
             return TransactionStatus.FAIL;
         }
     }

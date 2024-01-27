@@ -1,5 +1,6 @@
 package com.example.paymentserviceprovider.service;
 
+import com.example.paymentserviceprovider.logger.Logger;
 import com.example.paymentserviceprovider.model.paymentRegistry.PaymentServiceRegistry;
 import com.example.paymentserviceprovider.model.paymentRegistry.RetrofitPayment;
 import com.example.paymentserviceprovider.model.paymentRegistry.Transaction;
@@ -17,10 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -28,6 +26,8 @@ public class PaymentService {
 
     @Autowired
     TransactionRepository transactionRepo;
+    @Autowired
+    Logger logger;
 
     public static final String API_URL = "http://localhost:8081";
 
@@ -64,6 +64,7 @@ public class PaymentService {
             Response<Map<String, Object>> response = call.execute();
             System.out.println("After execute");
             if (response.isSuccessful()) {
+                logger.info("Payment successful", new Date().toString(), "PaymentServiceProvider", req);
                 System.out.println(url);
                 System.out.println("sucess");
                 System.out.println(response);
@@ -71,6 +72,7 @@ public class PaymentService {
                 return ResponseEntity.ok(response.body());
             } else {
                 // Handle unsuccessful response
+                logger.error("Payment failed. Message: " + response.message(), new Date().toString(), "PaymentServiceProvider", req);
                 System.out.println(url);
                 return ResponseEntity.status(response.code()).body(Map.of("Error", response.message()));
             }
