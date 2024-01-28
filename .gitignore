@@ -43,6 +43,7 @@ bin/
 chrome-profiler-events*.json
 
 # IDEs and editors
+/backend/.idea
 /.idea
 .project
 .classpath
