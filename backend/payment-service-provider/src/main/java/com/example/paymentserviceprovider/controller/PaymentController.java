@@ -2,7 +2,9 @@ package com.example.paymentserviceprovider.controller;
 
 import com.example.paymentserviceprovider.dto.UPPPayload;
 import com.example.paymentserviceprovider.service.PaymentService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,8 +47,8 @@ public class PaymentController {
     }
 
     @PostMapping("/proceed")
-    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req) {
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req, HttpServletRequest httpRequest) {
         System.out.println(req);
-        return paymentService.proceedPayment(req);
+        return paymentService.proceedPayment(req, httpRequest);
     }
 }

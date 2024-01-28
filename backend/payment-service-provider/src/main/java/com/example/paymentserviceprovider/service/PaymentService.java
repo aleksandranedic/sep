@@ -1,15 +1,18 @@
 package com.example.paymentserviceprovider.service;
 
 import com.example.paymentserviceprovider.logger.Logger;
-import com.example.paymentserviceprovider.model.paymentRegistry.PaymentServiceRegistry;
+import com.example.paymentserviceprovider.model.paymentRegistry.AuthCall;
 import com.example.paymentserviceprovider.model.paymentRegistry.RetrofitPayment;
 import com.example.paymentserviceprovider.model.paymentRegistry.Transaction;
 import com.example.paymentserviceprovider.repository.TransactionRepository;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -31,7 +34,14 @@ public class PaymentService {
 
     public static final String API_URL = "http://localhost:8081";
 
-    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req) {
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req, HttpServletRequest httpRequest) {
+        try {
+            authenticate(httpRequest);
+        } catch (Exception e) {
+            logger.error("Authentication failed. Message: " + e.getMessage(), new Date().toString(), "PaymentServiceProvider", req);
+            return ResponseEntity.status(500).body(Map.of("Error", "Failed to make the request"));
+        }
+
         String url = API_URL + req.get("path") + "/";//PaymentServiceRegistry.getDescriptor(method).url();
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
 
@@ -97,6 +107,36 @@ public class PaymentService {
         Map<String, Object> filteredData = removePasswords(reqBody);
         Transaction transaction = new Transaction(merchantOrderId, merchantTimestamp, filteredData);
         transactionRepo.save(transaction);
+    }
+
+    private void authenticate(HttpServletRequest httpRequest) throws IOException {
+        Cookie[] cookies = httpRequest.getCookies();
+        Cookie accessCookie = Arrays.stream(cookies)
+                .filter(cookie -> cookie.getName().equals("access_token"))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No access token found"));
+        String token = accessCookie.getValue();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(chain -> {
+                    Request originalRequest = chain.request();
+                    Request.Builder builder = originalRequest.newBuilder()
+                            .header("Authorization", "Bearer " + token);
+                    Request newRequest = builder.build();
+                    return chain.proceed(newRequest);
+                })
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://localhost:8001/auth/verify/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        AuthCall auth = retrofit.create(AuthCall.class);
+        Call<Map<String, Object>> call = auth.authenticate("http://localhost:8001/auth/verify/");
+        Response<Map<String, Object>> response = call.execute();
+        if (!response.isSuccessful()) {
+           throw new RuntimeException("Authentication failed");
+        }
     }
 
     private Map<String, Object> removePasswords(Map<String, Object> data) {

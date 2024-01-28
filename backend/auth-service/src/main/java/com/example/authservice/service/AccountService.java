@@ -28,6 +28,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.example.authservice.util.LoginUtils.*;
@@ -64,21 +65,16 @@ public class AccountService {
         ));
         User user = (User) authentication.getPrincipal();
 
-//        if (loginRequest.getCode() == null)
-//            throw new Missing2FaCodeException("Please provide 2FA code along with the credentials to authenticate.");
-//
-//        if (!verify2FA(loginRequest.getCode(), user))
-//            throw new Invalid2FaCodeException("Invalid 2FA code.", user);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = tokenProvider.createAccessToken(authentication);
         Integer tokenExpirationSeconds = appProperties.getAuth().getTokenExpirationSeconds();
-        Cookie cookie = CookieUtils.addCookie(
+        CookieUtils.addCookie(
                 response,
                 TokenAuthenticationFilter.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
                 tokenExpirationSeconds
         );
+
 
         Long expiresAt = tokenProvider.readClaims(accessToken).getExpiration().getTime();
 
@@ -95,7 +91,9 @@ public class AccountService {
 
     public void registerLawyer(RegistrationRequest registrationRequest) {
         checkEmailAvailability(registrationRequest.getEmail());
-
+        if (!checkPasswordStrength(registrationRequest.getPassword())) {
+            throw new RuntimeException("Password is not strong enough");
+        }
         Lawyer Lawyer = populateLawyer(registrationRequest);
         Lawyer.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         Lawyer.setPasswordSet(true);
@@ -103,6 +101,17 @@ public class AccountService {
         Lawyer.lockAccount("Email address for this account has not been verified.");
         userRepository.save(Lawyer);
         mailingService.sendEmailVerificationMail(Lawyer);
+    }
+
+    public Boolean checkPasswordStrength(String password) {
+        if (password.length() < 12) {
+            return false;
+        }
+        boolean hasUppercase = !password.equals(password.toLowerCase());
+        boolean hasLowercase = !password.equals(password.toUpperCase());
+        boolean hasNumber = password.matches(".*\\d.*");
+        boolean hasSpecialChar = password.matches(".*[!@#$%^&*()_+].*");
+        return hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
     }
 
     public void verifyEmail(VerificationRequest verificationRequest) {
@@ -174,5 +183,9 @@ public class AccountService {
 
     public User getLoggedUserInfo(String loggedUserId) {
         return userRepository.getById(UUID.fromString(loggedUserId));
+    }
+
+    public void verify(Map<String, Object> req) {
+        System.out.println(req);
     }
 }

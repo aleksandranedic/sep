@@ -64,6 +64,7 @@ export class AuthService {
         'Content-Type': 'application/json',
       }),
       params: params,
+      withCredentials: true
     };
   }
 

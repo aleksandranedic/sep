@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardContainerComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['ROLE_PROPERTY_OWNER', 'ROLE_ADMIN']}
+    data: {roles: ['ROLE_PROPERTY_OWNER', 'ROLE_ADMIN', 'ROLE_USER']}
   },
   {path: 'registration/verification', component: VerificationScreenContainerComponent},
   {path: 'pay/card/:id', component: PayCardComponent},

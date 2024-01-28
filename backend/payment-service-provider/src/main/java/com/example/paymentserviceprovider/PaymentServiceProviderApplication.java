@@ -15,9 +15,4 @@ public class PaymentServiceProviderApplication {
     public static void main(String[] args) {
         SpringApplication.run(PaymentServiceProviderApplication.class, args);
     }
-
-    @PostConstruct
-    private void registerPaymentServices() {
-        paymentRegistryService.loadPaymentRegistry();
-    }
 }

@@ -16,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
@@ -26,6 +28,11 @@ public class AuthController {
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         return accountService.login(loginRequest, response);
+    }
+
+    @GetMapping("/verify/")
+    public ResponseEntity<Map<String, String>> verify() {
+        return ResponseEntity.ok(Map.of("Message","Verified"));
     }
 
     @PostMapping("/logout")

@@ -64,9 +64,9 @@ export class LoginComponent {
       code: undefined
     }
     this.authService.login(loginCredentials).subscribe({
-      next: (loginResponse) => {
+      next: (loginResponse: any) => {
         console.log(loginResponse)
-        localStorage.setItem('userRole', loginResponse.role);
+        localStorage.setItem('userRole', loginResponse.role.name);
         localStorage.setItem('id', loginResponse.id);
         localStorage.setItem('email', loginCredentials.email);
         this.router.navigate(['/dashboard']);
