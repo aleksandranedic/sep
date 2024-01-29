@@ -11,9 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -25,6 +28,11 @@ public class AuthController {
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         return accountService.login(loginRequest, response);
+    }
+
+    @GetMapping("/verify/")
+    public ResponseEntity<Map<String, String>> verify() {
+        return ResponseEntity.ok(Map.of("Message","Verified"));
     }
 
     @PostMapping("/logout")
@@ -67,5 +75,23 @@ public class AuthController {
     public ResponseOk setPassword(@RequestBody SetPasswordRequest setPasswordRequest) {
         accountService.setPassword(setPasswordRequest);
         return new ResponseOk("Password set successfully. User is verified.");
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> hasAdminRole() {
+        return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/admin-privileges")
+    @PreAuthorize("hasAuthority('ADMINP')")
+    public ResponseEntity<String> hasAdminPrivilege() {
+        return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> hasUserRole() {
+        return ResponseEntity.ok("ok");
     }
 }

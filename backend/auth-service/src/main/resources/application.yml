@@ -1,5 +1,6 @@
 server:
   port: 8001
+
 spring:
   application:
       name: auth
@@ -40,10 +41,6 @@ spring:
   devtools:
     remote:
       secret: "secret"
-    sql:
-      init:
-        data-locations: classpath:/data-postgres.sql
-        mode: always
   cache:
     jcache:
       config: classpath:ehcache.xml
@@ -58,6 +55,10 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  sql:
+    init:
+      data-locations: classpath:data-postgres.sql
+      mode: always
 #jpa:
 #hibernate:
 #dialect: org.hibernate.dialect.PostgreSQL95Dialect

@@ -18,9 +18,5 @@ public class AuthServiceApplication {
         SpringApplication.run(AuthServiceApplication.class, args);
     }
 
-    @PostConstruct
-    private void registerPaymentServices() {
-        accountService.initUsers();
-    }
 
 }

@@ -7,6 +7,7 @@ import com.example.authservice.exception.*;
 import com.example.authservice.model.Lawyer;
 import com.example.authservice.model.Role;
 import com.example.authservice.model.User;
+import com.example.authservice.repository.RoleRepository;
 import com.example.authservice.repository.UserRepository;
 import com.example.authservice.security.AuthenticationManagerWrapper;
 import com.example.authservice.security.TokenAuthenticationFilter;
@@ -27,6 +28,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.example.authservice.util.LoginUtils.*;
@@ -53,6 +55,9 @@ public class AccountService {
     @Autowired
     private MailingService mailingService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     public LoginResponse login(LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getEmail(),
@@ -60,21 +65,16 @@ public class AccountService {
         ));
         User user = (User) authentication.getPrincipal();
 
-//        if (loginRequest.getCode() == null)
-//            throw new Missing2FaCodeException("Please provide 2FA code along with the credentials to authenticate.");
-//
-//        if (!verify2FA(loginRequest.getCode(), user))
-//            throw new Invalid2FaCodeException("Invalid 2FA code.", user);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = tokenProvider.createAccessToken(authentication);
         Integer tokenExpirationSeconds = appProperties.getAuth().getTokenExpirationSeconds();
-        Cookie cookie = CookieUtils.addCookie(
+        CookieUtils.addCookie(
                 response,
                 TokenAuthenticationFilter.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
                 tokenExpirationSeconds
         );
+
 
         Long expiresAt = tokenProvider.readClaims(accessToken).getExpiration().getTime();
 
@@ -91,14 +91,27 @@ public class AccountService {
 
     public void registerLawyer(RegistrationRequest registrationRequest) {
         checkEmailAvailability(registrationRequest.getEmail());
-
+        if (!checkPasswordStrength(registrationRequest.getPassword())) {
+            throw new RuntimeException("Password is not strong enough");
+        }
         Lawyer Lawyer = populateLawyer(registrationRequest);
         Lawyer.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         Lawyer.setPasswordSet(true);
-        Lawyer.setRole(Role.ROLE_PROPERTY_OWNER);
+        Lawyer.setRole(roleRepository.findById(1L).get());
         Lawyer.lockAccount("Email address for this account has not been verified.");
         userRepository.save(Lawyer);
         mailingService.sendEmailVerificationMail(Lawyer);
+    }
+
+    public Boolean checkPasswordStrength(String password) {
+        if (password.length() < 12) {
+            return false;
+        }
+        boolean hasUppercase = !password.equals(password.toLowerCase());
+        boolean hasLowercase = !password.equals(password.toUpperCase());
+        boolean hasNumber = password.matches(".*\\d.*");
+        boolean hasSpecialChar = password.matches(".*[!@#$%^&*()_+].*");
+        return hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
     }
 
     public void verifyEmail(VerificationRequest verificationRequest) {
@@ -129,7 +142,7 @@ public class AccountService {
     private Lawyer populateLawyer(UserDetailsRequest createUserRequest) {
         Lawyer Lawyer = new Lawyer();
         Lawyer.setId(UUID.randomUUID());
-        Lawyer.setRole(Role.ROLE_PROPERTY_OWNER);
+        Lawyer.setRole(roleRepository.findById(1L).get());
         Lawyer.setEmail(createUserRequest.getEmail());
         Lawyer.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
         Lawyer.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
@@ -167,27 +180,12 @@ public class AccountService {
 //        mailingService.sendTwoFactorSetupKey(userToVerify);
     }
 
-    public void initUsers() {
-        Lawyer lawyer = new Lawyer();
-        lawyer.setId(UUID.fromString("e3661c31-d1a4-47ab-94b6-1c6500dccf24"));
-        lawyer.setEmail("admin@authservice.com");
-        lawyer.setEmailVerified(true);
-        lawyer.setFirstName("Super");
-        lawyer.setLastName("Admin");
-        lawyer.setPassword("$2a$10$Qg.gpYTtZiVMJ6Fs9QbQA.BtCx4106oSj92X.A/Gv7iAEKQXAg.gy");
-        lawyer.setRole(Role.valueOf("ROLE_ADMIN"));
-        lawyer.setPhoneNumber("+48123456789");
-        lawyer.setCity("Warszawa");
-        lawyer.setPasswordSet(true);
-        lawyer.setLoginAttempts(0);
-        lawyer.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
-        lawyer.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
-        lawyer.setTwoFactorKey("F3OPURVECFTYHZXAM62YME7PVESQZXP7");
-        lawyer.setDeleted(false);
-        userRepository.save(lawyer);
-    }
 
     public User getLoggedUserInfo(String loggedUserId) {
         return userRepository.getById(UUID.fromString(loggedUserId));
+    }
+
+    public void verify(Map<String, Object> req) {
+        System.out.println(req);
     }
 }

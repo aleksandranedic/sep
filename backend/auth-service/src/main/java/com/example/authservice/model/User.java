@@ -1,5 +1,6 @@
 package com.example.authservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
 import java.time.temporal.TemporalUnit;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Data
@@ -58,8 +57,33 @@ public abstract class User implements UserDetails {
     @Column(nullable = false)
     private String city;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
+
+    public Role getRole() {
+        return this.roles.get(0);
+    }
+
+    public void setRole(Role role) {
+        if(this.roles == null) {
+            this.roles = new ArrayList<>();
+        }
+        this.roles.add(role);
+    }
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> permissions = new ArrayList<>(20);
+        for (Role role : this.roles) {
+            permissions.add(role);
+            permissions.addAll(role.getPrivileges());
+        }
+        return permissions;
+    }
 
     @Column(nullable = false)
     private Integer loginAttempts = 0;
@@ -106,10 +130,6 @@ public abstract class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(role.toAuthority());
-    }
 
     public boolean isLocked() {
         return Instant.now().isBefore(lockedUntil);

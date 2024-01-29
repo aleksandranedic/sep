@@ -3,6 +3,7 @@ package com.example.paypalservice.services;
 import com.example.paypalservice.controllers.dto.CreatePaymentDTO;
 import com.example.paypalservice.controllers.dto.CreateSubscriptionDTO;
 import com.example.paypalservice.controllers.dto.PaymentDTO;
+import com.example.paypalservice.logger.Logger;
 import com.example.paypalservice.model.SubscriptionPlan;
 import com.example.paypalservice.repository.PaymentRepository;
 import com.example.paypalservice.repository.SubscriptionPlanRepo;
@@ -35,6 +36,8 @@ public class PaypalService {
     private PaymentRepository paymentRepository;
     @Autowired
     private SubscriptionPlanRepo subscriptionPlanRepo;
+    @Autowired
+    private Logger logger;
     public static final String FRONTEND_URL = "http://localhost:4200/";
     public static final String CURRENCY = "USD";
     public static final String INTENT = "sale";
@@ -57,6 +60,7 @@ public class PaypalService {
 
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
+        logger.info("Creating payment", LocalDateTime.now().toString(), "paypal-service", createPaymentDTO);
 
         Payer payer = new Payer();
         payer.setPaymentMethod(PAYMENT_METHOD);
@@ -75,10 +79,12 @@ public class PaypalService {
             for (Links link : createdPayment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
                     storePaymentInfo(total, createPaymentDTO.getMerchantOrderId(), createdPayment.getId());
+                    logger.info("Payment created", LocalDateTime.now().toString(), "paypal-service", createdPayment);
                     return link.getHref();
                 }
             }
         } catch (PayPalRESTException e) {
+            logger.error("Error creating payment", LocalDateTime.now().toString(), "paypal-service", createPaymentDTO);
             throw new RuntimeException("Unsuccessful creation of payment");
         }
         return null;
@@ -90,12 +96,14 @@ public class PaypalService {
         if (spOpt.isEmpty()) {
             String plan_id = createPlan(name, createSubscriptionDTO);
             subscriptionPlanRepo.save(new SubscriptionPlan(name, plan_id, createSubscriptionDTO.getAmount()));
+            logger.info("Subscription plan created", LocalDateTime.now().toString(), "paypal-service", createSubscriptionDTO);
             return plan_id;
         }
         return spOpt.get().getPlan_id();
     }
 
     private void storePaymentInfo(double total, String merchantOrderId, String paypalPaymentId) {
+        logger.info("Storing payment info", LocalDateTime.now().toString(), "paypal-service", null);
         com.example.paypalservice.model.Payment payment = new com.example.paypalservice.model.Payment();
         payment.setAmount(total);
         payment.setSuccessful(false);
@@ -103,9 +111,11 @@ public class PaypalService {
         payment.setPaypalPaymentId(paypalPaymentId);
         payment.setTransactionDate(LocalDateTime.now());
         paymentRepository.save(payment);
+        logger.info("Payment info stored", LocalDateTime.now().toString(), "paypal-service", payment);
     }
 
     public String executePayment(PaymentDTO paymentDTO) {
+        logger.info("Executing payment", LocalDateTime.now().toString(), "paypal-service", paymentDTO);
         Payment payment = new Payment();
         payment.setId(paymentDTO.getPaymentId());
         PaymentExecution paymentExecution = new PaymentExecution();
@@ -115,12 +125,15 @@ public class PaypalService {
             Payment executedPayment = payment.execute(apiContext, paymentExecution);
             if (executedPayment.getState().equals("approved")) {
                 onSuccessfulPayment(paymentDTO);
+                logger.info("Payment executed", LocalDateTime.now().toString(), "paypal-service", executedPayment);
                 return "Successful payment";
             } else {
+                logger.error("Unsuccessful payment", LocalDateTime.now().toString(), "paypal-service", executedPayment);
                 throw new RuntimeException("Unsuccessful payment");
             }
         } catch (PayPalRESTException e) {
             System.out.println(e);
+            logger.error("Unsuccessful payment", LocalDateTime.now().toString(), "paypal-service", paymentDTO);
             throw new RuntimeException("Unsuccessful payment");
         }
     }
@@ -129,6 +142,7 @@ public class PaypalService {
         com.example.paypalservice.model.Payment payment = paymentRepository.findByPaypalPaymentId(paymentDTO.getPaymentId());
         payment.setSuccessful(true);
         paymentRepository.save(payment);
+        logger.info("Payment successful", LocalDateTime.now().toString(), "paypal-service", payment);
     }
 
     private String createPlanName(CreateSubscriptionDTO createSubscriptionDTO) {
@@ -154,6 +168,7 @@ public class PaypalService {
     }
 
     public String createPlan(String name, CreateSubscriptionDTO createSubscriptionDTO) {
+        logger.info("Creating subscription plan", LocalDateTime.now().toString(), "paypal-service", createSubscriptionDTO);
         Plan plan = new Plan();
         plan.setName(name);
         plan.setDescription("Basic subscription plan");
@@ -192,14 +207,17 @@ public class PaypalService {
 //                createdPlan.update(apiContext, patchRequest);
 
                 System.out.println("Plan activated successfully");
+                System.out.println(createdPlan);
                 return createdPlan.getId();
             } else {
                 // Handle plan creation error
+                logger.error("Plan creation failed", LocalDateTime.now().toString(), "paypal-service", createSubscriptionDTO);
                 System.err.println("Plan creation failed");
                 throw new RuntimeException("Error creating new plan");
             }
         } catch (PayPalRESTException e) {
             e.printStackTrace();
+            logger.error("Plan creation failed", LocalDateTime.now().toString(), "paypal-service", createSubscriptionDTO);
             throw new RuntimeException("Error creating new plan");
         }
     }
