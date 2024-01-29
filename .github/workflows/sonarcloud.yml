@@ -67,4 +67,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        working-directory: ./backend/paypal-service  # Adjust to the path of your first project
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=aleksandranedic_sep
+       # Analyze Project A
+      - name: Analyze PSP
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for SonarCloud to access the repository
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # SonarCloud token stored as a GitHub secret
+        working-directory: ./backend/payment-service-provider  # Adjust to the path of your first project
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=aleksandranedic_sep
+  
+      # Analyze Project B
+      - name: Analyze crypto service
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for SonarCloud to access the repository
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # SonarCloud token stored as a GitHub secret
+        working-directory: ./backend/payment-crypto-service  # Adjust to the path of your second project
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=aleksandranedic_sep
