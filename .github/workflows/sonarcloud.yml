@@ -63,6 +63,14 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      # Analyze Project B
+      - name: Analyze crypto service
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for SonarCloud to access the repository
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # SonarCloud token stored as a GitHub secret
+        working-directory: ./backend/payment-crypto-service  # Adjust to the path of your second project
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=aleksandranedic_sep
+
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -77,10 +85,4 @@ jobs:
         working-directory: ./backend/payment-service-provider  # Adjust to the path of your first project
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=aleksandranedic_sep
   
-      # Analyze Project B
-      - name: Analyze crypto service
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for SonarCloud to access the repository
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # SonarCloud token stored as a GitHub secret
-        working-directory: ./backend/payment-crypto-service  # Adjust to the path of your second project
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=aleksandranedic_sep
+      
