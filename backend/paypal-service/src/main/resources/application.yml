@@ -1,2 +1,10 @@
 server:
-    port: '8087'
+  port: '8087'
+paypal:
+  mode: 'sandbox'
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/paypal
+  config:
+    import: optional:secrets.properties

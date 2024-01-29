@@ -1,11 +1,15 @@
 package com.example.paymentserviceprovider.controller;
 
+import com.example.paymentserviceprovider.dto.UPPPayload;
 import com.example.paymentserviceprovider.service.PaymentService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -14,6 +18,13 @@ public class PaymentController {
 
     @Autowired
     PaymentService paymentService;
+
+    @PostMapping("/refund")
+    public ResponseEntity<Map<String,String>> refund(@RequestBody UPPPayload payload) {
+        System.out.println(payload);
+        return ResponseEntity.ok(Map.of("message", "Refunded successfully"));
+    }
+
 
     @PostMapping("/subscribe")
     public ResponseEntity<String> subscribeToMethod(@RequestBody String method) {
@@ -25,8 +36,19 @@ public class PaymentController {
         return ResponseEntity.ok(method);
     }
 
-    @PostMapping("/{method}")
-    public ResponseEntity<Map<String, Object>> proceedPayment(@PathVariable String method, @RequestBody Map<String, Object> req) {
-        return paymentService.proceedPayment(method, req);
+    @GetMapping
+    public List<String> getSubscriptions() {
+        return List.of();
+    }
+
+    @PostMapping
+    public void override(@RequestBody List<String> services) {
+        System.out.println(services);
+    }
+
+    @PostMapping("/proceed")
+    public ResponseEntity<Map<String, Object>> proceedPayment(@RequestBody Map<String, Object> req, HttpServletRequest httpRequest) {
+        System.out.println(req);
+        return paymentService.proceedPayment(req, httpRequest);
     }
 }

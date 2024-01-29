@@ -7,11 +7,13 @@ import com.example.authservice.exception.*;
 import com.example.authservice.model.Lawyer;
 import com.example.authservice.model.Role;
 import com.example.authservice.model.User;
+import com.example.authservice.repository.RoleRepository;
 import com.example.authservice.repository.UserRepository;
 import com.example.authservice.security.AuthenticationManagerWrapper;
 import com.example.authservice.security.TokenAuthenticationFilter;
 import com.example.authservice.security.TokenProvider;
 import com.example.authservice.util.CookieUtils;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -22,6 +24,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.example.authservice.util.LoginUtils.*;
@@ -48,18 +55,15 @@ public class AccountService {
     @Autowired
     private MailingService mailingService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     public LoginResponse login(LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getEmail(),
                 loginRequest.getPassword()
         ));
         User user = (User) authentication.getPrincipal();
-
-        if (loginRequest.getCode() == null)
-            throw new Missing2FaCodeException("Please provide 2FA code along with the credentials to authenticate.");
-
-        if (!verify2FA(loginRequest.getCode(), user))
-            throw new Invalid2FaCodeException("Invalid 2FA code.", user);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = tokenProvider.createAccessToken(authentication);
@@ -71,9 +75,10 @@ public class AccountService {
                 tokenExpirationSeconds
         );
 
+
         Long expiresAt = tokenProvider.readClaims(accessToken).getExpiration().getTime();
 
-        return new LoginResponse(accessToken, expiresAt, user.getRole());
+        return new LoginResponse(user.getId().toString(), expiresAt, user.getRole());
     }
 
     public boolean verifyLogin(LoginVerificationRequest verificationRequest, User user) {
@@ -86,14 +91,27 @@ public class AccountService {
 
     public void registerLawyer(RegistrationRequest registrationRequest) {
         checkEmailAvailability(registrationRequest.getEmail());
-
+        if (!checkPasswordStrength(registrationRequest.getPassword())) {
+            throw new RuntimeException("Password is not strong enough");
+        }
         Lawyer Lawyer = populateLawyer(registrationRequest);
         Lawyer.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         Lawyer.setPasswordSet(true);
-        Lawyer.setRole(Role.ROLE_PROPERTY_OWNER);
+        Lawyer.setRole(roleRepository.findById(1L).get());
         Lawyer.lockAccount("Email address for this account has not been verified.");
         userRepository.save(Lawyer);
         mailingService.sendEmailVerificationMail(Lawyer);
+    }
+
+    public Boolean checkPasswordStrength(String password) {
+        if (password.length() < 12) {
+            return false;
+        }
+        boolean hasUppercase = !password.equals(password.toLowerCase());
+        boolean hasLowercase = !password.equals(password.toUpperCase());
+        boolean hasNumber = password.matches(".*\\d.*");
+        boolean hasSpecialChar = password.matches(".*[!@#$%^&*()_+].*");
+        return hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
     }
 
     public void verifyEmail(VerificationRequest verificationRequest) {
@@ -105,7 +123,7 @@ public class AccountService {
         userToVerify.unlockAccount();
         userToVerify.setEmailVerified(true);
         userRepository.save(userToVerify);
-        mailingService.sendTwoFactorSetupKey(userToVerify);
+//        mailingService.sendTwoFactorSetupKey(userToVerify);
     }
 
     private void checkEmailAvailability(String email) {
@@ -124,8 +142,10 @@ public class AccountService {
     private Lawyer populateLawyer(UserDetailsRequest createUserRequest) {
         Lawyer Lawyer = new Lawyer();
         Lawyer.setId(UUID.randomUUID());
-        Lawyer.setRole(Role.ROLE_PROPERTY_OWNER);
+        Lawyer.setRole(roleRepository.findById(1L).get());
         Lawyer.setEmail(createUserRequest.getEmail());
+        Lawyer.setLastLoginAttempt(Instant.parse("2023-12-09T12:30:00Z"));
+        Lawyer.setLockedUntil(Instant.parse("2023-12-09T12:30:00Z"));
         Lawyer.setFirstName(createUserRequest.getFirstName());
         Lawyer.setLastName(createUserRequest.getLastName());
         Lawyer.setEmailVerified(false);
@@ -157,6 +177,15 @@ public class AccountService {
         userToVerify.setPassword(passwordEncoder.encode(setPasswordRequest.getPassword()));
         userToVerify.setPasswordSet(true);
         userRepository.save(userToVerify);
-        mailingService.sendTwoFactorSetupKey(userToVerify);
+//        mailingService.sendTwoFactorSetupKey(userToVerify);
+    }
+
+
+    public User getLoggedUserInfo(String loggedUserId) {
+        return userRepository.getById(UUID.fromString(loggedUserId));
+    }
+
+    public void verify(Map<String, Object> req) {
+        System.out.println(req);
     }
 }

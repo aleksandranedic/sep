@@ -23,15 +23,15 @@ public class Transaction {
     CardInfo issuerCardInfo;
     String acquirerOrderId;
     String acquirerTimestamp;
-    String  issuerOrderId;
+    String issuerOrderId;
     LocalDateTime issuerTimeStamp;
     String bankId;
 
     public Transaction(String userId,
-    String paymentId,
-    double amount,
-    String merchantOrderId,
-    LocalDateTime merchantTimeStamp, String bankId) {
+                       String paymentId,
+                       double amount,
+                       String merchantOrderId,
+                       LocalDateTime merchantTimeStamp, String bankId) {
         this.userId = userId;
         this.paymentId = paymentId;
         this.amount = amount;

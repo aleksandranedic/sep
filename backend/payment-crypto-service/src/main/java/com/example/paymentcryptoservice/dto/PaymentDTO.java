@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class PaymentDTO {
-    private String crypto;
+    private String email;
+    private Double amount;
 }

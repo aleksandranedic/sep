@@ -30,7 +30,6 @@ public class AuthenticationManagerWrapper implements AuthenticationManager {
     @Autowired
     private AppProperties appProperties;
 
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = (String) authentication.getPrincipal();
@@ -58,8 +57,8 @@ public class AuthenticationManagerWrapper implements AuthenticationManager {
             updateLoginTracking(user);
             userRepository.save(user);
 
-            if (user.getLoginAttempts() >= appProperties.getAuth().getLoginAttemptLimit()) {
-                user.lockAccount(appProperties.getAuth().getLockoutDuration(), ChronoUnit.MINUTES, "Too many failed login attempts.");
+            if (user.getLoginAttempts() >= 5) {
+                user.lockAccount(20, ChronoUnit.MINUTES, "Too many failed login attempts.");
                 userRepository.save(user);
             }
 
@@ -70,7 +69,7 @@ public class AuthenticationManagerWrapper implements AuthenticationManager {
 
     private void updateLoginTracking(User user) {
         Instant now = Instant.now();
-        Instant windowStart = now.minus(appProperties.getAuth().getLoginAttemptTimeWindow(), ChronoUnit.MINUTES);
+        Instant windowStart = now.minus(2, ChronoUnit.MINUTES);
 
         // Reset the counter if there was no activity during the observed time window
         if (user.getLastLoginAttempt().isBefore(windowStart))

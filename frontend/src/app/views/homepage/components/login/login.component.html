@@ -31,11 +31,11 @@
           </mat-error>
         </mat-form-field>
       </p>
-      <div *ngIf="twoFactorAuth">
-        <p>Enter 6-digit verification code:</p>
-<!--        <input [(ngModel)]="code">-->
-        <app-verification-code (verificationCodeChange)="onVerificationCodeChange($event)"></app-verification-code>
-      </div>
+<!--      <div *ngIf="twoFactorAuth">-->
+<!--        <p>Enter 6-digit verification code:</p>-->
+<!--&lt;!&ndash;        <input [(ngModel)]="code">&ndash;&gt;-->
+<!--        <app-verification-code (verificationCodeChange)="onVerificationCodeChange($event)"></app-verification-code>-->
+<!--      </div>-->
       <p *ngIf="loginFailed" style="color: var(--red)">Authentication failed.</p>
       <button mat-raised-button type="submit" id="loginBtn" [disabled]="formGroup.invalid"
               color="primary"

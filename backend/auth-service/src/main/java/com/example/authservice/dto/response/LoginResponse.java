@@ -7,7 +7,7 @@ import com.example.authservice.model.Role;
 @Data
 @AllArgsConstructor
 public class LoginResponse {
-    private String accessToken;
+    private String id;
     private Long expiresAt;
     private Role role;
 }

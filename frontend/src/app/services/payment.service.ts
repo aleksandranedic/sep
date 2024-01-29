@@ -15,16 +15,27 @@ export class PaymentService {
     this.paymentUrl = environment.apiUrl + '/api/payment';
   }
 
-  public subscribe(): Observable<string> {
-    return this.http.get<string>(this.paymentUrl, AuthService.getHttpOptions());
+  public save(services: string[]): Observable<void> {
+    return this.http.post<void>(this.paymentUrl, services, AuthService.getHttpOptions());
   }
 
-  public remove(): Observable<string> {
-    return this.http.get<string>(this.paymentUrl, AuthService.getHttpOptions());
+  public proceedPayment(method: string, req: any, path = "api/payment"): Observable<any> {
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {...req, path:`/${method}/${path}`}, AuthService.getHttpOptions());
   }
 
-  public proceedPayment(method: string, req: any): Observable<any> {
-    const url = `${this.paymentUrl}/${method}`;
-    return this.http.post<any>(url, req, AuthService.getHttpOptions());
+  public confirmPaypalPayment(paymentId: string, payerId: string) {
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {paymentId, payerId,  path:`/paypal/api/payment/confirm}`}, AuthService.getHttpOptions());
+  }
+
+  public getPlanId(payload: any): Observable<any> {
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {...payload, path: '/paypal/api/payment/subscribe'}, AuthService.getHttpOptions());
+  }
+
+  public checkCryptoTransaction(transactionId: string) {
+    const url = `${this.paymentUrl}/proceed`;
+    return this.http.post<any>(url, {transactionId, path: '/crypto/api/payment/status'}, AuthService.getHttpOptions());
   }
 }

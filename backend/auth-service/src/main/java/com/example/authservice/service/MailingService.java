@@ -1,87 +1,47 @@
 package com.example.authservice.service;
-
-import com.google.zxing.WriterException;
-import com.example.authservice.config.AppProperties;
-import com.example.authservice.model.*;
-import org.apache.commons.io.FileUtils;
+import com.example.authservice.model.Lawyer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.authservice.util.LoginUtils.generateGoogleAuthenticatorLink;
-import static com.example.authservice.util.LoginUtils.generateQRCodeBase64;
-
 @Service
 public class MailingService {
 
-//    @Autowired
-//    private JavaMailSender mailSender;
-
-    private final Path templatesLocation;
-
-    private final String senderAddress;
-
     @Autowired
-    public MailingService(AppProperties appProperties) {
-        templatesLocation = Paths.get(appProperties.getMailing().getTemplatesLocation());
-        senderAddress = appProperties.getMailing().getSenderAddress();
-    }
+    private JavaMailSender mailSender;
 
     @Async
-    public void sendEmailVerificationMail(Lawyer lawyer) {
-        String content = renderTemplate("verification.html",
-                "firstName", lawyer.getFirstName(),
-                "email", lawyer.getEmail(),
-                "code", lawyer.getVerificationCode());
+    public void sendEmailVerificationMail(Lawyer propertyOwner) {
+        String content = renderTemplate(
+                "firstName", propertyOwner.getFirstName(),
+                "email", propertyOwner.getEmail(),
+                "code", propertyOwner.getVerificationCode());
 
-        sendMail(lawyer.getEmail(), "Welcome to our app! Complete verification", content);
-    }
-
-    @Async
-    public void sendTwoFactorSetupKey(User user) {
-        try {
-            String content = renderTemplate("2fa.html",
-                    "firstName", user.getFirstName(),
-                    "secretKey", user.getTwoFactorKey(),
-                    "qrcode", generateQRCodeBase64(generateGoogleAuthenticatorLink(user)));
-
-            sendMail(user.getEmail(), "Set up Two-Factor Authentication for Your Account", content);
-        } catch (WriterException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        sendMail(propertyOwner.getEmail(), "Welcome to Secure IT! Complete verification", content);
     }
 
     private void sendMail(String to, String subject, String body) {
-//        try {
-//            MimeMessage mimeMessage = mailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-//            helper.setText(body, true);
-//            helper.setTo(to);
-//            helper.setFrom(senderAddress);
-//            helper.setSubject(subject);
-//            mailSender.send(mimeMessage);
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(body);
+        String senderAddress = "bsep-test@outlook.com";
+        message.setFrom(senderAddress);
+
+        mailSender.send(message);
     }
 
-    private String renderTemplate(String templateName, String... variables) {
+    private String renderTemplate(String... variables) {
         Map<String, String> variableMap = new HashMap<>();
 
-        List<String> keyValueList = Arrays.stream(variables).toList();
+        List<String> keyValueList = Arrays.asList(variables);
 
         if (keyValueList.size() % 2 != 0)
             throw new IllegalArgumentException();
@@ -90,17 +50,16 @@ public class MailingService {
             variableMap.put(keyValueList.get(i), keyValueList.get(i + 1));
         }
 
-        return renderTemplate(templateName, variableMap);
+        return renderTemplate(variableMap);
     }
 
-    private String renderTemplate(String templateName, Map<String, String> variables) {
-        File file = templatesLocation.resolve(templateName).toFile();
-        String message = null;
-        try {
-            message = FileUtils.readFileToString(file, "UTF-8");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private String renderTemplate(Map<String, String> variables) {
+        String message = "Dear {{ firstName }},\n\n" +
+                "To start using our services, we need to verify your ownership of the email address {{ email }}. " +
+                "Please click on the following link to verify your email address:\n\n" +
+                "Click to verify: http://localhost:4200/registration/verification?code={{ code }}\n\n" +
+                "Thank you for your cooperation.\n\n" +
+                "Best regards,\nSEP";
 
         String target, renderedValue;
         for (var entry : variables.entrySet()) {

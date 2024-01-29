@@ -1,6 +1,7 @@
 package com.example.authservice.controller;
 
 import com.example.authservice.api.ResponseOk;
+import com.example.authservice.dto.request.Subscriptions;
 import com.example.authservice.dto.request.UserDetailsRequest;
 import com.example.authservice.dto.response.UserDetailResponse;
 import com.example.authservice.dto.response.UserInfoResponse;
@@ -17,12 +18,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping("/pera/{id}")
-    public int getUser(@PathVariable long id) {
-        System.out.println("TU SMO " + id);
-        return (int) (1000 + id);
-    }
 
     @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
@@ -47,5 +42,15 @@ public class UserController {
     public ResponseOk deleteUser(@PathVariable String userEmail) {
         userService.deleteUser(userEmail);
         return new ResponseOk("User logically deleted.");
+    }
+
+    @GetMapping("/subscriptions/{userId}")
+    public List<String> getSubscriptions(@PathVariable String userId) {
+        return userService.getSubscriptions(userId);
+    }
+
+    @PostMapping("/subscriptions")
+    public void override(@RequestBody Subscriptions subscriptions) {
+        userService.overrideSubscriptions(subscriptions);
     }
 }

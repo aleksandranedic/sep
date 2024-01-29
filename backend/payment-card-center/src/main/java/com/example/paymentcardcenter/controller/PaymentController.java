@@ -14,7 +14,7 @@ public class PaymentController {
     PaymentService paymentService;
 
     @PostMapping("/issuer/")
-    public ResponseEntity<IssuerResponseDTO> proceedToIssuerBank(@RequestBody AcquirerBankDTO acquirerBankDTO) {
+    public ResponseEntity<?> proceedToIssuerBank(@RequestBody AcquirerBankDTO acquirerBankDTO) {
         System.out.println(acquirerBankDTO.getAcquirerOrderId());
         return paymentService.proceedToIssuerBank(acquirerBankDTO);
     }

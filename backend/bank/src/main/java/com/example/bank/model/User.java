@@ -18,6 +18,7 @@ public class User {
     CardInfo cardInfo;
     String bankId;
     String name;
+
     public User(String pass, double amount, CardInfo cardInfo, String bankId, String name) {
         this.password = pass;
         this.amount = amount;

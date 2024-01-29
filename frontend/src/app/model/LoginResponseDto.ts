@@ -6,7 +6,7 @@ export class UserTokenState {
 }
 
 export class LoginResponseDto {
-  accessToken!: string;
+  id!: any;
   expiresAt!: number;
   role!: string;
 }

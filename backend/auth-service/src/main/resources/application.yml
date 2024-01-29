@@ -1,6 +1,9 @@
 server:
   port: 8001
+
 spring:
+  application:
+      name: auth
   mail:
     host: 'smtp.office365.com'
     port: 587
@@ -9,13 +12,13 @@ spring:
     properties:
       mail:
         smtp:
+          auth: true
           starttls:
             enable: true
   datasource:
     url: jdbc:postgresql://localhost:5432/sep
     username: postgres
     password: postgres
-    sql.init.continue-on-error: true
   jpa:
     generate-ddl: 'true'
     properties:
@@ -38,10 +41,6 @@ spring:
   devtools:
     remote:
       secret: "secret"
-  #  sql:
-  #    init:
-  #      data-locations: classpath:/data-postgres.sql
-  #      mode: always
   cache:
     jcache:
       config: classpath:ehcache.xml
@@ -56,8 +55,10 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/nutrical?createDatabaseIfNotExist=true
+  sql:
+    init:
+      data-locations: classpath:data-postgres.sql
+      mode: always
 #jpa:
 #hibernate:
 #dialect: org.hibernate.dialect.PostgreSQL95Dialect
@@ -70,3 +71,9 @@ app:
   mailing:
     templatesLocation: templates
     senderAddress: bsep-test@outlook.com
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+

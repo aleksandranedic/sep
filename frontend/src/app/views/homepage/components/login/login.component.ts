@@ -23,7 +23,7 @@ export class LoginComponent {
   email = "";
   password = "";
   code = "";
-  twoFactorAuth = false;
+  twoFactorAuth = true;
   loginFailed = false;
 
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar, private _formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
@@ -61,11 +61,14 @@ export class LoginComponent {
     let loginCredentials: LoginCredentials = {
       email: this.email,
       password: this.password,
-      code: this.code
+      code: undefined
     }
     this.authService.login(loginCredentials).subscribe({
-      next: (loginResponse) => {
-        localStorage.setItem('userRole', loginResponse.role);
+      next: (loginResponse: any) => {
+        console.log(loginResponse)
+        localStorage.setItem('userRole', loginResponse.role.name);
+        localStorage.setItem('id', loginResponse.id);
+        localStorage.setItem('email', loginCredentials.email);
         this.router.navigate(['/dashboard']);
         this.loginFailed = false;
       }, error: () => {

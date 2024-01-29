@@ -1,8 +1,23 @@
 server:
-    port: '8086'
+  port: '8086'
+#  ssl:
+#    key-store: classpath:springboot.p12
+#    key-store-password: password
+#    key-store-type: pkcs12
+#    key-alias: springboot
+#    key-password: password
 
 spring:
-    data:
-        mongodb:
-            uri: mongodb://localhost:27017/psp
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/psp
+  cloud:
+    compatibility-verifier:
+      enabled: false
+  application:
+    name: psp
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
