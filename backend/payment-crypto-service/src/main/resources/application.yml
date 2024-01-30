@@ -5,3 +5,9 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/crypto
       uuid-representation: standard
+  application:
+    name: crypto
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

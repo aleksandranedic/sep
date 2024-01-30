@@ -8,3 +8,10 @@ spring:
       uri: mongodb://localhost:27017/paypal
   config:
     import: optional:secrets.properties
+  application:
+    name: paypal
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

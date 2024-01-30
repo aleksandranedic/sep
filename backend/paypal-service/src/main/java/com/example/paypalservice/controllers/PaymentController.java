@@ -55,5 +55,4 @@ public class PaymentController {
             return ResponseEntity.badRequest().body((Map.of("message", exception.getMessage())));
         }
     }
-
 }

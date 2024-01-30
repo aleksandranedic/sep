@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    String[] origins = new String[]{"http://localhost:4200", "http://localhost:8086"};
+    String[] origins = new String[]{"http://localhost:4200", "https://localhost:4200", "http://localhost:8086", "https://localhost:8086"};
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

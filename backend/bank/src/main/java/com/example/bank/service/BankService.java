@@ -129,7 +129,6 @@ public class BankService {
 
     public ResponseEntity<?> issuerPay(PCCPayloadDTO pccPayloadDTO) {
         logger.info("Starting issuer payment", new Date().toString(), "BankService", pccPayloadDTO);
-        Optional<User> optionalBuyer = userRepo.findByCardInfo(pccPayloadDTO.getCardInfo());
         CardInfo cardInfo = new CardInfo();
         cardInfo.setExpiryYear(pccPayloadDTO.getCardInfo().getExpiryYear());
         cardInfo.setExpiryMonth(pccPayloadDTO.getCardInfo().getExpiryMonth());

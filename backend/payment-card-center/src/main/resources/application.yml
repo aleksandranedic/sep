@@ -1,5 +1,11 @@
 server:
   port: '8085'
+#  ssl:
+#    key-store: springboot.jks
+#    key-store-password: password
+#    key-store-type: jks
+#    key-alias: springboot
+#    key-password: password
 
 spring:
   data:
@@ -7,3 +13,7 @@ spring:
       uri: mongodb://localhost:27017/pcp
   application:
     name: payment-card-service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
