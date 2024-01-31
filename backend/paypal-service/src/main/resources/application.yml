@@ -1,5 +1,12 @@
 server:
   port: '8087'
+  #  ssl:
+  #    key-store: springboot.jks
+  #    key-store-password: password
+  #    key-store-type: pkcs12
+  #    key-alias: springboot
+  #    key-password: password
+
 paypal:
   mode: 'sandbox'
 spring:
